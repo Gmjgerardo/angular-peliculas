@@ -1,7 +1,14 @@
 @for (movie of movies; track $index) {
-  <div>
-    <p>{{ movie.title | uppercase }}</p>
-    <p>{{ movie.releaseDate | date:'dd-MMMM-YYYY' }}</p>
-    <p>{{ movie.price | currency }}</p>
+  <div class="contenedor-pelicula">
+    <div style="display: flex; flex-direction: row; gap: 0.50rem;">
+      <div>
+        <img [src]="movie.image" width="169" height="250">
+      </div>
+      <div>
+        <p>{{ movie.title | uppercase }}</p>
+        <p>{{ movie.releaseDate | date:'dd-MMMM-YYYY' }}</p>
+        <p>{{ movie.price | currency }}</p>
+      </div>
+    </div>
   </div>
 }
