@@ -1,3 +1,5 @@
+<button (click)="addMovie()">Agregar película</button>
+
 @if (!movies) {
   <img class="loader" src="loading.gif" alt="loading">
 } @else if (movies.length === 0) {
@@ -9,7 +11,7 @@
     <div class="contenedor-pelicula">
       <div style="display: flex; flex-direction: row; gap: 0.50rem;">
         <div>
-          <img [ngSrc]="movie.image" [priority]="$index === 0" width="169" height="250">
+          <img [ngSrc]="movie.image || 'default.jpg'" [priority]="$index === 0" width="169" height="250">
         </div>
         <div>
           <p>{{ $index + 1 }}) Movie: {{ movie.title | uppercase }}</p>
