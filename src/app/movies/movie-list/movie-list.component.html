@@ -1,25 +1,21 @@
 <button (click)="addMovie()">Agregar película</button>
 
-@if (!movies) {
-  <img class="loader" src="loading.gif" alt="loading">
-} @else if (movies.length === 0) {
-  <div>
-    <p>No hay elementos para mostrar</p>
-  </div>
-} @else {
-  @for (movie of movies; track $index) {
-    <div class="contenedor-pelicula">
-      <div style="display: flex; flex-direction: row; gap: 0.50rem;">
-        <div>
-          <img [ngSrc]="movie.image || 'default.jpg'" [priority]="$index === 0" width="169" height="250">
-        </div>
-        <div>
-          <p>{{ $index + 1 }}) Movie: {{ movie.title | uppercase }}</p>
-          <p>{{ movie.releaseDate | date:'dd-MMMM-YYYY' }}</p>
-          <p>{{ movie.price | currency }}</p>
-          <button (click)="removeMovie(movie)">Eliminar</button>
+<app-generic-list [list]="movies">
+  <ng-container content>
+    @for (movie of movies; track $index) {
+      <div class="contenedor-pelicula">
+        <div style="display: flex; flex-direction: row; gap: 0.50rem;">
+          <div>
+            <img [ngSrc]="movie.image || 'default.jpg'" [priority]="$index === 0" width="169" height="250">
+          </div>
+          <div>
+            <p>{{ $index + 1 }}) Movie: {{ movie.title | uppercase }}</p>
+            <p>{{ movie.releaseDate | date:'dd-MMMM-YYYY' }}</p>
+            <p>{{ movie.price | currency }}</p>
+            <button (click)="removeMovie(movie)">Eliminar</button>
+          </div>
         </div>
       </div>
-    </div>
-  }
-}
+    }
+  </ng-container>
+</app-generic-list>

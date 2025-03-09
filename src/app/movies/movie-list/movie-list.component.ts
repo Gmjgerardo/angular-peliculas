@@ -1,10 +1,11 @@
 import { CurrencyPipe, DatePipe, NgOptimizedImage, UpperCasePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { GenericListComponent } from "../../shared/components/generic-list/generic-list.component";
 
 @Component({
   selector: 'app-movie-list',
   standalone: true,
-  imports: [DatePipe, UpperCasePipe, CurrencyPipe, NgOptimizedImage],
+  imports: [DatePipe, UpperCasePipe, CurrencyPipe, NgOptimizedImage, GenericListComponent],
   templateUrl: './movie-list.component.html',
   styleUrl: './movie-list.component.css'
 })
