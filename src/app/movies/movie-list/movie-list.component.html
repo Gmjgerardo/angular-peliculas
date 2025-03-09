@@ -17,6 +17,7 @@
           <p>{{ $index + 1 }}) Movie: {{ movie.title | uppercase }}</p>
           <p>{{ movie.releaseDate | date:'dd-MMMM-YYYY' }}</p>
           <p>{{ movie.price | currency }}</p>
+          <button (click)="removeMovie(movie)">Eliminar</button>
         </div>
       </div>
     </div>

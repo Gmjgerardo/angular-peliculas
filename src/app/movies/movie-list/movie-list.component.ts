@@ -21,4 +21,11 @@ export class MovieListComponent {
     });
   }
 
+  removeMovie(movie: any) {
+    const index = this.movies.findIndex((actualMovie: any) => actualMovie.title === movie.title);
+
+    this.movies.splice(index, 1);
+  }
+
+
 }
