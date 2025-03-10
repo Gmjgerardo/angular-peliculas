@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
@@ -18,6 +18,9 @@ export class RatingComponent {
 
   previousSelectedRating = 0;
 
+  @Output()
+  voted = new EventEmitter<number>();
+
   manageMouseEnter(index: number): void {
     this.selectedRating = index + 1;
   }
@@ -29,5 +32,6 @@ export class RatingComponent {
   manageClick(index: number): void {
     this.selectedRating = index + 1;
     this.previousSelectedRating = this.selectedRating;
+    this.voted.emit(this.selectedRating);
   }
 }
