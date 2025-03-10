@@ -12,7 +12,9 @@
             <p>{{ $index + 1 }}) Movie: {{ movie.title | uppercase }}</p>
             <p>{{ movie.releaseDate | date:'dd-MMMM-YYYY' }}</p>
             <p>{{ movie.price | currency }}</p>
-            <button (click)="removeMovie(movie)">Eliminar</button>
+            <button mat-flat-button (click)="removeMovie(movie)">
+              <mat-icon aria-hidden="false" aria-label="Delete Movie" fontIcon="delete"></mat-icon>Eliminar
+            </button>
           </div>
         </div>
       </div>
