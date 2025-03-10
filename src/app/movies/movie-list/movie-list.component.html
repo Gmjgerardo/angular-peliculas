@@ -1,23 +1,20 @@
-<button (click)="addMovie()">Agregar película</button>
-
 <app-generic-list [list]="movies">
   <ng-container content>
-    @for (movie of movies; track $index) {
-      <div class="contenedor-pelicula">
-        <div style="display: flex; flex-direction: row; gap: 0.50rem;">
-          <div>
+    <div class="movies-container">
+      @for (movie of movies; track $index) {
+        <div class="movie-container">
+          <a>
             <img [ngSrc]="movie.image || 'default.jpg'" [priority]="$index === 0" width="169" height="250">
-          </div>
-          <div>
-            <p>{{ $index + 1 }}) Movie: {{ movie.title | uppercase }}</p>
-            <p>{{ movie.releaseDate | date:'dd-MMMM-YYYY' }}</p>
-            <p>{{ movie.price | currency }}</p>
-            <button mat-flat-button (click)="removeMovie(movie)">
-              <mat-icon aria-hidden="false" aria-label="Delete Movie" fontIcon="delete"></mat-icon>Eliminar
-            </button>
-          </div>
+          </a>
+          <a>
+            <p>{{ movie.title }}</p>
+          </a>
+          <button mat-flat-button>Editar</button>
+          <button mat-flat-button color="warn">
+            Borrar
+          </button>
         </div>
-      </div>
-    }
+      }
+    </div>
   </ng-container>
 </app-generic-list>

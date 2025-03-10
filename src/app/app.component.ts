@@ -64,8 +64,4 @@ export class AppComponent implements OnInit {
       ];
     }, 2000);
   }
-
-  processVote(vote: number): void {
-    alert(`Calificación otorgada: ${vote}`)
-  }
 }

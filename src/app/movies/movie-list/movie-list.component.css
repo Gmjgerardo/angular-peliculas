@@ -1,10 +1,21 @@
-.contenedor-pelicula {
-  border: 1px solid black;
-  padding: 0.75rem;
-  margin-block: 1rem;
+.movies-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem;
 }
 
-.loader {
-  display: block;
-  margin-inline: auto;
+.movie-container {
+  text-align: center;
+}
+
+p {
+  max-width: 225px;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+button {
+  margin-inline: 0.50rem;
 }
