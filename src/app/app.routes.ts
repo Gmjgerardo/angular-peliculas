@@ -25,4 +25,5 @@ export const routes: Routes = [
   { path: 'cines', component: IndexCinemasComponent },
   { path: 'cines/crear', component: CreateCinemaComponent },
   { path: 'cines/editar/:id', component: EditCinemaComponent },
+  { path: '**', redirectTo: '' },
 ];
