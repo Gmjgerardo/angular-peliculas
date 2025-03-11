@@ -6,9 +6,11 @@ import { IndexActorsComponent } from './actors/index-actors/index-actors.compone
 import { CreateActorsComponent } from './actors/create-actors/create-actors.component';
 import { IndexCinemasComponent } from './cinemas/index-cinemas/index-cinemas.component';
 import { CreateCinemaComponent } from './cinemas/create-cinema/create-cinema.component';
+import { CreateMoviesComponent } from './movies/create-movies/create-movies.component';
 
 export const routes: Routes = [
   { path: '', component: LandingPageComponent },
+  { path: 'peliculas/crear', component: CreateMoviesComponent },
   { path: 'generos', component: IndexGenresComponent },
   { path: 'generos/crear', component: CreateGenreComponent },
   { path: 'actores', component: IndexActorsComponent },
