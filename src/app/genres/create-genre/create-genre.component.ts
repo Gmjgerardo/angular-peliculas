@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Router, RouterLink } from '@angular/router';
+import { startWithUpperCase } from '../../shared/functions/validations';
 
 @Component({
   selector: 'app-create-genre',
@@ -17,16 +18,17 @@ export class CreateGenreComponent {
   private formBuilder: FormBuilder = inject(FormBuilder);
 
   form = this.formBuilder.group({
-    name: ['', {validators: [Validators.required]}]
+    name: ['', {validators: [Validators.required, startWithUpperCase()]}]
   });
 
   obtainErrorNameField(): string {
     const { name } = this.form.controls;
     let error: string = "";
 
-    if (name.hasError('required')) {
+    if (name.hasError('required'))
       error = "El campo nombre es requerido";
-    }
+    if (name.hasError('startWithUpperCase'))
+      error = name.getError('startWithUpperCase').message;
 
     return error;
   }
