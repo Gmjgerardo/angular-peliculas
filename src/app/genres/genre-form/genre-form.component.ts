@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RouterLink } from '@angular/router';
+import { GenreCreationDTO } from '../genres';
 
 @Component({
   selector: 'app-genre-form',
@@ -17,7 +18,7 @@ export class GenreFormComponent {
   private formBuilder: FormBuilder = inject(FormBuilder);
 
   @Output()
-  postSendEvent: EventEmitter = new EventEmitter<>();
+  postSendEvent: EventEmitter<GenreCreationDTO> = new EventEmitter<GenreCreationDTO>();
   
   form = this.formBuilder.group({
     name: ['', {validators: [Validators.required, startWithUpperCase()]}]
@@ -36,6 +37,9 @@ export class GenreFormComponent {
   }
 
   saveChanges(): void {
-    console.log(this.form.value);
+    if (this.form.valid) {
+      const genre = this.form.value as GenreCreationDTO;
+      this.postSendEvent.emit(genre);
+    }
   }
 }
