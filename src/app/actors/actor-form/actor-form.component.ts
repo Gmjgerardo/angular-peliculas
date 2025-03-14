@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { RouterLink } from '@angular/router';
 import { ActorCreateDTO, ActorDTO } from '../actors';
+import { dateBeforeToday } from '../../shared/functions/validations';
 
 @Component({
   selector: 'app-actor-form',
@@ -25,7 +26,9 @@ export class ActorFormComponent implements OnInit {
 
   form: FormGroup = this.formBuilder.group({
     name: new FormControl('', { validators: [Validators.required] }),
-    birthDate: new FormControl<Date | null>(null),
+    birthDate: new FormControl<Date | null>(null, {
+      validators: [Validators.required, dateBeforeToday()]
+    }),
   });
 
   ngOnInit(): void {
@@ -38,5 +41,27 @@ export class ActorFormComponent implements OnInit {
       const actor = this.form.value as ActorCreateDTO;
       this.postSendEvent.emit(actor);
     }
+  }
+
+  obtainErrorsNameField(): string {
+    let errorMessage: string = "";
+    const nameField = this.form.controls['name'];
+
+    if (nameField.hasError('required'))
+      errorMessage = "El campo nombre es requerido";
+
+    return errorMessage;
+  }
+
+  obtainErrorsBirthdateField(): string {
+    let errorMessage: string = "";
+    const birthDateField = this.form.controls['birthDate'];
+
+    if (birthDateField.hasError('required'))
+      errorMessage = "El campo fecha de nacimiento es requerido";
+    if (birthDateField.hasError('dateBeforeToday'))
+      errorMessage = birthDateField.getError('dateBeforeToday').message;
+
+    return errorMessage;
   }
 }
