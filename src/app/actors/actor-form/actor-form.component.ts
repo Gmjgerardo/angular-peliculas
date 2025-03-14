@@ -5,13 +5,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { RouterLink } from '@angular/router';
-import { provideNativeDateAdapter } from '@angular/material/core';
 import { ActorCreateDTO, ActorDTO } from '../actors';
 
 @Component({
   selector: 'app-actor-form',
   standalone: true,
-  providers: [provideNativeDateAdapter()],
   imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatDatepickerModule, MatButtonModule, RouterLink],
   templateUrl: './actor-form.component.html',
   styleUrl: './actor-form.component.css'
