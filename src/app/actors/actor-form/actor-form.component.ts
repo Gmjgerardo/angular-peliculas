@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
@@ -16,7 +16,7 @@ import { ActorCreateDTO, ActorDTO } from '../actors';
   templateUrl: './actor-form.component.html',
   styleUrl: './actor-form.component.css'
 })
-export class ActorFormComponent {
+export class ActorFormComponent implements OnInit {
   private formBuilder: FormBuilder = inject(FormBuilder);
 
   @Input()
@@ -29,6 +29,11 @@ export class ActorFormComponent {
     name: new FormControl('', { validators: [Validators.required] }),
     birthDate: new FormControl<Date | null>(null),
   });
+
+  ngOnInit(): void {
+    if (this.model)
+      this.form.patchValue(this.model);
+  }
 
   saveChanges(): void {
     if (this.form.valid) {
