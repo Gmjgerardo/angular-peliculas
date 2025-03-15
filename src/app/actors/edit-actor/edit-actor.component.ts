@@ -14,7 +14,7 @@ export class EditActorComponent {
   id!: number;
 
   // Static value for testing
-  actor: ActorDTO = {id: 1, name: 'Natalie Portman', birthDate: new Date('1981-06-09')};
+  actor: ActorDTO = {id: 1, name: 'Natalie Portman', birthDate: new Date('1981-06-09'), profileImage: 'https://upload.wikimedia.org/wikipedia/commons/c/c7/Natalie_Portman_Cannes_2015_3_%28cropped%29.jpg'};
 
   saveChanges(actor: ActorCreateDTO): void {
       console.log('Editando al actor', actor);

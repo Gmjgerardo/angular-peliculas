@@ -7,11 +7,12 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { RouterLink } from '@angular/router';
 import { ActorCreateDTO, ActorDTO } from '../actors';
 import { dateBeforeToday } from '../../shared/functions/validations';
+import { InputImgComponent } from "../../shared/components/input-img/input-img.component";
 
 @Component({
   selector: 'app-actor-form',
   standalone: true,
-  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatDatepickerModule, MatButtonModule, RouterLink],
+  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatDatepickerModule, MatButtonModule, RouterLink, InputImgComponent],
   templateUrl: './actor-form.component.html',
   styleUrl: './actor-form.component.css'
 })
@@ -29,6 +30,9 @@ export class ActorFormComponent implements OnInit {
     birthDate: new FormControl<Date | null>(null, {
       validators: [Validators.required, dateBeforeToday()]
     }),
+    profileImage: new FormControl<File | string | null>(null, {
+      validators: []
+    }),
   });
 
   ngOnInit(): void {
@@ -39,8 +43,14 @@ export class ActorFormComponent implements OnInit {
   saveChanges(): void {
     if (this.form.valid) {
       const actor = this.form.value as ActorCreateDTO;
+      // Reset profileImage value in cases where the image is the same
+      typeof actor.profileImage === "string" && (actor.profileImage = undefined);
       this.postSendEvent.emit(actor);
     }
+  }
+
+  handleImageChange(imageFile: File): void {
+    this.form.controls['profileImage'].setValue(imageFile);
   }
 
   obtainErrorsNameField(): string {
