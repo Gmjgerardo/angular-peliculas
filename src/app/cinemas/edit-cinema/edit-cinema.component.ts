@@ -14,10 +14,9 @@ export class EditCinemaComponent {
   id!: number;
 
   // Static value for testing
-  cinema: CinemaDTO = { id: 23, name: 'FORUM Tlaquepaque' }
+  cinema: CinemaDTO = { id: 23, name: 'FORUM Tlaquepaque', lat: 20.648204004447127, lng: -103.31999658139843 }
 
   saveChanges(cinema: CinemaCreateDTO): void {
     console.log('Editando:', cinema);
-    
   }
 }
