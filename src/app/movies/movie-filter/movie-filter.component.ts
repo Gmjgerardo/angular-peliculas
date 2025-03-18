@@ -8,6 +8,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { GenreDTO } from '../../genres/genres';
 import { MovieListComponent } from "../movie-list/movie-list.component";
 import { MovieFilter } from './movieFilter';
+import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-movie-filter',
@@ -18,6 +20,8 @@ import { MovieFilter } from './movieFilter';
 })
 export class MovieFilterComponent implements OnInit {
   private formBuilder: FormBuilder = inject(FormBuilder);
+  private location: Location = inject(Location);
+  private activatedRoute: ActivatedRoute = inject(ActivatedRoute);
 
   form = this.formBuilder.group({
     title: new FormControl<string>(''),
@@ -99,9 +103,13 @@ export class MovieFilterComponent implements OnInit {
   movies = [...this.allMovies];
 
   ngOnInit(): void {
+    this.readSearchParameterOnURL();
+    this.searchMovies(this.form.value as MovieFilter);
+
     this.form.valueChanges.subscribe(values => {
       this.movies = this.allMovies;
       this.searchMovies(values as MovieFilter);
+      this.writeSearchParametersOnURL(values as MovieFilter);
     });
   }
 
@@ -117,5 +125,43 @@ export class MovieFilterComponent implements OnInit {
 
     if (movieToSearch.comingSoon)
       this.movies = this.movies.filter(movie => movie.comingSoon)
+  }
+
+  writeSearchParametersOnURL(values: MovieFilter): void {
+    const queryString = [];
+
+    if (values.title) queryString.push(`titulo=${encodeURIComponent(values.title)}`);
+
+    if (values.genreId) queryString.push(`genero=${encodeURIComponent(values.genreId)}`);
+
+    if (values.onCinemas) queryString.push(`enCines=${encodeURIComponent(values.onCinemas)}`);
+
+    if (values.comingSoon) queryString.push(`proximamente=${encodeURIComponent(values.comingSoon)}`);
+
+    this.location.replaceState('peliculas/filtrar', queryString.join('&'));
+  }
+
+  readSearchParameterOnURL(): void {
+    this.activatedRoute.queryParams.subscribe((params: any) => {
+      let movieObject: MovieFilter | any = {};
+
+      if (params.titulo) {
+        movieObject.title = params.titulo;
+      }
+
+      if (params.genero) {
+        movieObject.genreId = Number(params.genero);
+      }
+
+      if (params.enCines) {
+        movieObject.onCinemas = Boolean(params.enCines);
+      }
+
+      if (params.proximamente) {
+        movieObject.comingSoon = Boolean(params.proximamente);
+      }
+
+      this.form.patchValue(movieObject);
+    });
   }
 }
