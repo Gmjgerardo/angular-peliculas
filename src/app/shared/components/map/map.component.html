@@ -1,0 +1,8 @@
+<div
+  leaflet
+  [leafletOptions]="options"
+  [leafletLayers]="markers"
+  (leafletClick)="clickHandle($event)"
+  [style.height.px]="height"
+  [style.width.px]="width">
+</div>
