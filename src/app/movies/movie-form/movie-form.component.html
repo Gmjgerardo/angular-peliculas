@@ -1,0 +1,30 @@
+<form [formGroup]="form" (submit)="registerSubmit()">
+  <mat-form-field appearance="outline">
+    <mat-label>Título</mat-label>
+    <input matInput [formControl]="form.controls.title">
+    <mat-error>{{ obtainErrorsTitleField() }}</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Fecha Lanzamiento</mat-label>
+    <input matInput [matDatepicker]="picker" [formControl]="form.controls.releaseDate">
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <mat-error>{{ obtainErrorsReleaseDateField() }}</mat-error>
+  </mat-form-field>
+
+  <app-input-img title="Poster de la Pélicula"
+    [imageURL]="model?.image"
+    (selectedFile)="changeImage($event)">
+  </app-input-img>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Trailer</mat-label>
+    <input matInput [formControl]="form.controls.trailer">
+  </mat-form-field>  
+
+  <div class="buttons-container">
+    <button type="submit" mat-flat-button [disabled]="form.invalid">Guardar cambios</button>
+    <a mat-stroked-button routerLink="/">Cancelar</a>
+  </div>
+</form>
