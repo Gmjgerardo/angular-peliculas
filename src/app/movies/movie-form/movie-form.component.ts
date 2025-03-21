@@ -8,11 +8,13 @@ import { RouterLink } from '@angular/router';
 import { MovieDTO, MovieCreateDTO } from '../movies';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import moment from 'moment';
+import { MultipleSelectorComponent } from "../../shared/components/multiple-selector/multiple-selector.component";
+import { MultipleSelectorDTO } from '../../shared/components/multiple-selector/MultipleSelectorModel';
 
 @Component({
   selector: 'app-movie-form',
   standalone: true,
-  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, RouterLink, MatDatepickerModule, InputImgComponent],
+  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, RouterLink, MatDatepickerModule, InputImgComponent, MultipleSelectorComponent],
   templateUrl: './movie-form.component.html',
   styleUrl: './movie-form.component.css'
 })
@@ -22,6 +24,9 @@ export class MovieFormComponent implements OnInit {
   @Output() onPostSendEvent: EventEmitter<MovieCreateDTO> = new EventEmitter<MovieCreateDTO>();
 
   @Input() model: MovieDTO | undefined;
+
+  @Input({ required: true, }) selectedGenres!: MultipleSelectorDTO[];
+  @Input({ required:true }) notSelectedGenres!: MultipleSelectorDTO[];
 
   form: FormGroup<{
     title: FormControl<string | null>,
@@ -51,6 +56,10 @@ export class MovieFormComponent implements OnInit {
 
       // Convert releaseDate (moment) to redeable date
       movie.releaseDate = moment(movie.releaseDate).toDate();
+
+      // Adding selected genres to movie object
+      if(this.selectedGenres.length > 0)
+        movie.genresIds = this.selectedGenres.map(genre => genre.key);
       this.onPostSendEvent.emit(movie);
     }
   }
