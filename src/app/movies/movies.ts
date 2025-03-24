@@ -13,4 +13,5 @@ export interface MovieCreateDTO {
   trailer?: string;
   image?: File;
   genresIds?: number[];
+  cinemasIds?: number[];
 }

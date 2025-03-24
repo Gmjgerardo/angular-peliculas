@@ -14,19 +14,25 @@ export class EditMovieComponent {
   @Input({ transform: numberAttribute })
   id!: number;
 
+  // Static value for testing
   selectedGenres: MultipleSelectorDTO[] = [
-      { key: 1, value: 'Drama' },
       { key: 2, value: 'Acción' },
       { key: 3, value: 'Comedia' },
     ];
 
   notSelectedGenres: MultipleSelectorDTO[] = [
       { key: 1, value: 'Drama' },
-      { key: 2, value: 'Acción' },
-      { key: 3, value: 'Comedia' },
     ];
 
-  // Static value for testing
+  selectedCinemas: MultipleSelectorDTO[] = [
+      { key: 1, value: 'Cinepolis: FORUM Tlaquepaque' },
+      { key: 2, value: 'Cinepolis: La Perla' },
+    ];
+
+  notSelectedCinemas: MultipleSelectorDTO[] = [
+      { key: 3, value: 'Cinemex: Tonalá' },
+    ];
+
   movie: MovieDTO = { id: 1, title: 'Star Wars: Episode III, Revenge Of The Sith', releaseDate: new Date('2005-05-15'), image: 'https://upload.wikimedia.org/wikipedia/en/9/93/Star_Wars_Episode_III_Revenge_of_the_Sith_poster.jpg?20171214071623', trailer: 'ABC' };
 
   saveChanges(movie: MovieCreateDTO): void {

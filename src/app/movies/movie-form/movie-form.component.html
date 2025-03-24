@@ -23,7 +23,11 @@
     <input matInput [formControl]="form.controls.trailer">
   </mat-form-field>
 
+  <h4>Seleccione los Géneros</h4>
   <app-multiple-selector [selected]="selectedGenres" [notSelected]="notSelectedGenres"></app-multiple-selector>
+
+  <h4>Seleccione los Cines</h4>
+  <app-multiple-selector [selected]="selectedCinemas" [notSelected]="notSelectedCinemas"></app-multiple-selector>
 
   <div class="buttons-container">
     <button type="submit" mat-flat-button [disabled]="form.invalid">Guardar cambios</button>

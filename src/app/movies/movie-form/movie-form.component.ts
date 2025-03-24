@@ -25,8 +25,13 @@ export class MovieFormComponent implements OnInit {
 
   @Input() model: MovieDTO | undefined;
 
+  // Genres Selector Variables
   @Input({ required: true, }) selectedGenres!: MultipleSelectorDTO[];
   @Input({ required:true }) notSelectedGenres!: MultipleSelectorDTO[];
+
+  // Cinemas Selector Variables
+  @Input({ required: true, }) selectedCinemas!: MultipleSelectorDTO[];
+  @Input({ required:true }) notSelectedCinemas!: MultipleSelectorDTO[];
 
   form: FormGroup<{
     title: FormControl<string | null>,
@@ -60,6 +65,8 @@ export class MovieFormComponent implements OnInit {
       // Adding selected genres to movie object
       if(this.selectedGenres.length > 0)
         movie.genresIds = this.selectedGenres.map(genre => genre.key);
+      if (this.selectedGenres.length > 0)
+        movie.cinemasIds = this.selectedCinemas.map((movie) => movie.key);
       this.onPostSendEvent.emit(movie);
     }
   }
