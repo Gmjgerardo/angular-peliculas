@@ -25,11 +25,11 @@ export class MultipleSelectorComponent {
 
   selectAll(): void {
     this.selected.push(...this.notSelected);
-    this.notSelected = [];
+    this.notSelected.length = 0; // If sets [] the references changes and the arrays from components are different
   }
 
   unselectAll(): void {
     this.notSelected.push(...this.selected);
-    this.selected = [];
+    this.selected.length = 0; // If sets [] the references changes and the arrays from components are different
   }
 }
