@@ -13,7 +13,7 @@ export interface ActorCreateDTO {
 
 export interface ActorAutocompleteDTO {
   id: number;
-  name: number;
+  name: string;
   character: string;
   image: string;
 }
