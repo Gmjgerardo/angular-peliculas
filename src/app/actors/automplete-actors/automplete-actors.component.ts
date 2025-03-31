@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
@@ -7,20 +7,23 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ActorAutocompleteDTO } from '../actors';
+import { map, Observable, startWith } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-automplete-actors',
   standalone: true,
   imports: [ReactiveFormsModule, FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatTableModule, MatIconModule,
-    DragDropModule,
+    DragDropModule, AsyncPipe,
   ],
   templateUrl: './automplete-actors.component.html',
   styleUrl: './automplete-actors.component.css'
 })
-export class AutompleteActorsComponent {
+export class AutompleteActorsComponent implements OnInit {
   @ViewChild(MatTable) table !: MatTable<ActorAutocompleteDTO>;
 
   control: FormControl = new FormControl();
+  filterOptions!: Observable<ActorAutocompleteDTO[]>;
 
   actors: ActorAutocompleteDTO[] = [
     {id: 1, name: 'Natalie Portman', character: '', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Natalie_Portman_2023.jpg/220px-Natalie_Portman_2023.jpg'},
@@ -35,6 +38,17 @@ export class AutompleteActorsComponent {
   selectedActors: ActorAutocompleteDTO[] = [];
 
   displayedColumns: string[] = ['image', 'name', 'character', 'actions'];
+
+  ngOnInit(): void {
+    this.filterOptions = this.control.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || '')),
+    );
+  }
+
+  private _filter(name: string): ActorAutocompleteDTO[] {
+    return this.actors.filter(actor => actor.name.toLowerCase().includes(name.toLowerCase()));
+  }
 
   selectActor(event: MatAutocompleteSelectedEvent): void {
     this.selectedActors.push(event.option.value);

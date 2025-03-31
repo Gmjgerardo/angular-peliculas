@@ -6,7 +6,7 @@
       type="text"
       placeholder="Seleccione">
     <mat-autocomplete #auto (optionSelected)="selectActor($event)">
-      @for (actor of actors; track $index) {
+      @for (actor of filterOptions | async; track $index) {
         <mat-option class="actor-container" [value]="actor">
           <img [src]="actor.image" />
           {{ actor.name }}
