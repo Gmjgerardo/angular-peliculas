@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
@@ -31,6 +31,7 @@ export class AutompleteActorsComponent {
     {id: 6, name: 'Tom Hiddleston', character: '', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Tom_Hiddleston_at_the_2024_Toronto_International_Film_Festival_%28cropped%29.jpg/250px-Tom_Hiddleston_at_the_2024_Toronto_International_Film_Festival_%28cropped%29.jpg'},
   ];
 
+  @Input({ required: true })
   selectedActors: ActorAutocompleteDTO[] = [];
 
   displayedColumns: string[] = ['image', 'name', 'character', 'actions'];

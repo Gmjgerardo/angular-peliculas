@@ -11,6 +11,7 @@ import moment from 'moment';
 import { MultipleSelectorComponent } from "../../shared/components/multiple-selector/multiple-selector.component";
 import { MultipleSelectorDTO } from '../../shared/components/multiple-selector/MultipleSelectorModel';
 import { AutompleteActorsComponent } from "../../actors/automplete-actors/automplete-actors.component";
+import { ActorAutocompleteDTO } from '../../actors/actors';
 
 @Component({
   selector: 'app-movie-form',
@@ -33,6 +34,9 @@ export class MovieFormComponent implements OnInit {
   // Cinemas Selector Variables
   @Input({ required: true }) selectedCinemas!: MultipleSelectorDTO[];
   @Input({ required: true }) notSelectedCinemas!: MultipleSelectorDTO[];
+
+  // Actors Selector Variables
+  @Input({ required: true }) selectedActors!: ActorAutocompleteDTO[];
 
   form: FormGroup<{
     title: FormControl<string | null>,
@@ -65,7 +69,8 @@ export class MovieFormComponent implements OnInit {
 
       // Adding selected data to movie object
       movie.genresIds = this.selectedGenres.map(genre => genre.key);
-      movie.cinemasIds = this.selectedCinemas.map(movie => movie.key);
+      movie.cinemasIds = this.selectedCinemas.map(cinema => cinema.key);
+      movie.actors = this.selectedActors;
 
       this.onPostSendEvent.emit(movie);
     }
