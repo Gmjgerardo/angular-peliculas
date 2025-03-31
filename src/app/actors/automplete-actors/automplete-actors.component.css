@@ -1,0 +1,23 @@
+.actor-container {
+  padding: 0.2rem;
+}
+
+.actor-container img {
+  vertical-align: middle;
+  margin-right: 8px;
+  width: 35px;
+  height: 45px;
+}
+
+table {
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+table td img {
+  width: 50px;
+}
+
+mat-icon {
+  cursor: pointer;
+}
