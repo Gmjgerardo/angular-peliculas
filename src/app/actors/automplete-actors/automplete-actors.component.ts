@@ -5,12 +5,15 @@ import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/ma
 import { MatTable, MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ActorAutocompleteDTO } from '../actors';
 
 @Component({
   selector: 'app-automplete-actors',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatTableModule, MatIconModule],
+  imports: [ReactiveFormsModule, FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatTableModule, MatIconModule,
+    DragDropModule,
+  ],
   templateUrl: './automplete-actors.component.html',
   styleUrl: './automplete-actors.component.css'
 })
@@ -41,11 +44,17 @@ export class AutompleteActorsComponent {
     }
   }
 
-  deleteFromSelected(actor: ActorAutocompleteDTO) {
+  deleteFromSelected(actor: ActorAutocompleteDTO): void {
     const index: number = this.selectedActors.indexOf(actor);
 
     this.selectedActors.splice(index, 1);
 
+    this.table.renderRows();
+  }
+  
+  stopDragging(event: CdkDragDrop<any[]>): void {
+    const previousIndex: number = this.selectedActors.findIndex(actor => actor === event.item.data);
+    moveItemInArray(this.selectedActors, previousIndex, event.currentIndex);
     this.table.renderRows();
   }
 }
