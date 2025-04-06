@@ -15,8 +15,8 @@ export class IndexGenresComponent {
   genresService: GenresService = inject(GenresService);
 
   constructor() {
-    const genres: GenreDTO[] = this.genresService.obtainAll();
-    console.log(genres);
-    
+    this.genresService.obtainAll().subscribe(genres => {
+      console.log(genres);
+    });
   }
 }
