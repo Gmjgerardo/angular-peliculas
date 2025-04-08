@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { Router } from '@angular/router';
 import { GenreFormComponent } from "../genre-form/genre-form.component";
 import { GenreCreationDTO } from '../genres';
+import { GenresService } from '../genres.service';
 
 @Component({
   selector: 'app-create-genre',
@@ -16,9 +17,9 @@ import { GenreCreationDTO } from '../genres';
 })
 export class CreateGenreComponent {
   private router: Router = inject(Router);
+  private genreService: GenresService = inject(GenresService);
 
   saveChanges(genre: GenreCreationDTO): void {
-    // this.router.navigate(['/generos']);
-    console.log(genre);
+    this.genreService.create(genre).subscribe(() => this.router.navigate(['/generos']));
   }
 }
