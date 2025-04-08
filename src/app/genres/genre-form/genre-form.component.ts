@@ -24,7 +24,7 @@ export class GenreFormComponent implements OnInit {
   postSendEvent: EventEmitter<GenreCreationDTO> = new EventEmitter<GenreCreationDTO>();
   
   form = this.formBuilder.group({
-    name: ['', {validators: [Validators.required, startWithUpperCase()]}]
+    name: ['', {validators: [Validators.required, Validators.maxLength(50), startWithUpperCase()]}]
   });
 
   ngOnInit(): void {
@@ -33,16 +33,18 @@ export class GenreFormComponent implements OnInit {
     }
   }
 
-  obtainErrorNameField(): string {
+  obtainErrorsNameField(): string[] {
     const { name } = this.form.controls;
-    let error: string = "";
+    let errors: string[] = [];
 
     if (name.hasError('required'))
-      error = "El campo nombre es requerido";
+      errors.push("El campo nombre es requerido");
+    if (name.hasError('maxlength'))
+      errors.push(`El campo nombre debe tener ${name.getError('maxlength').requiredLength} caracteres o menos`);
     if (name.hasError('startWithUpperCase'))
-      error = name.getError('startWithUpperCase').message;
+      errors.push(name.getError('startWithUpperCase').message);
 
-    return error;
+    return errors;
   }
 
   saveChanges(): void {
