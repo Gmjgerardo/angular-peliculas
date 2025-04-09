@@ -1,0 +1,17 @@
+:host {
+  --error-color: #ba1a1a;
+  --error-title-color: #ba4141;
+}
+
+ul {
+  color: var(--error-color);
+}
+
+#close-button-container {
+  position: absolute;
+  right: 0%;
+}
+
+mat-card-subtitle {
+  color: var(--error-title-color);
+}
