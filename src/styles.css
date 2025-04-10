@@ -20,3 +20,7 @@ mat-form-field {
 .buttons-container > :not(:last-child) {
   margin-right: 1rem;
 }
+
+.index-table {
+  margin-block: 1rem;
+}
