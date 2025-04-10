@@ -10,9 +10,11 @@
 
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef>Acciones</th>
-        <td mat-cell *matCellDef="let genre">
-          <a mat-flat-button routerLink="/generos/editar/{{genre.id}}">Editar</a>
-          <button mat-flat-button color="warn">Borrar</button>
+        <td mat-cell *matCellDef="let genre" class="buttons-container-cell">
+          <div>
+            <a mat-flat-button routerLink="/generos/editar/{{genre.id}}">Editar</a>
+            <button mat-flat-button color="warn">Borrar</button>
+          </div>
         </td>
       </ng-container>
 
