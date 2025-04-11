@@ -3105,6 +3105,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sweetalert2/ngx-sweetalert2@npm:^13.0.0":
+  version: 13.0.0
+  resolution: "@sweetalert2/ngx-sweetalert2@npm:13.0.0"
+  dependencies:
+    tslib: "npm:^2.0.0"
+  peerDependencies:
+    "@angular/common": ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+    "@angular/core": ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+    sweetalert2: ^11.15.10
+  checksum: 10c0/abfdea9db47603d519e6002231ecfe41108b136879f904d05f90c9db955cb5612d36ddc5af9922a56b298b5b3db0381cfffbd7350ccda08776341537ed8bee9f
+  languageName: node
+  linkType: hard
+
 "@tufjs/canonical-json@npm:2.0.0":
   version: 2.0.0
   resolution: "@tufjs/canonical-json@npm:2.0.0"
@@ -3728,6 +3741,7 @@ __metadata:
     "@angular/platform-browser-dynamic": "npm:^18.2.0"
     "@angular/router": "npm:^18.2.0"
     "@bluehalo/ngx-leaflet": "npm:^19.0.0"
+    "@sweetalert2/ngx-sweetalert2": "npm:^13.0.0"
     "@types/jasmine": "npm:~5.1.0"
     "@types/leaflet": "npm:^1"
     jasmine-core: "npm:~5.2.0"
@@ -3739,6 +3753,7 @@ __metadata:
     leaflet: "npm:^1.9.4"
     moment: "npm:^2.30.1"
     rxjs: "npm:~7.8.0"
+    sweetalert2: "npm:^11.17.2"
     tslib: "npm:^2.3.0"
     typescript: "npm:~5.5.2"
     zone.js: "npm:~0.14.10"
@@ -9317,6 +9332,13 @@ __metadata:
   version: 1.0.0
   resolution: "supports-preserve-symlinks-flag@npm:1.0.0"
   checksum: 10c0/6c4032340701a9950865f7ae8ef38578d8d7053f5e10518076e6554a9381fa91bd9c6850193695c141f32b21f979c985db07265a758867bac95de05f7d8aeb39
+  languageName: node
+  linkType: hard
+
+"sweetalert2@npm:^11.17.2":
+  version: 11.17.2
+  resolution: "sweetalert2@npm:11.17.2"
+  checksum: 10c0/2c18593b0fc57cec169ef561ff7582991665dec14886bd69dc86ee533d489057277691a7bd183671017084f0df4da468e7b9ca371002a90451841d5d410c3550
   languageName: node
   linkType: hard
 
