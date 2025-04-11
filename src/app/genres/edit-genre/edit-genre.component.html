@@ -1,3 +1,7 @@
 <h2>Editar Género</h2>
 
-<app-genre-form (postSendEvent)="saveChanges($event)" [model]="genre"></app-genre-form>
+@if (genre) {
+  <app-genre-form (postSendEvent)="saveChanges($event)" [model]="genre"></app-genre-form>
+} @else {
+  <app-loading></app-loading>
+}

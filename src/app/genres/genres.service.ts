@@ -24,6 +24,10 @@ export class GenresService {
     });
   }
 
+  public obtainById(id: number): Observable<GenreDTO> {
+    return this.http.get<GenreDTO>(`${this.baseURL}/${id}`);
+  }
+
   public create(genre: GenreCreationDTO): Observable<GenreDTO> {
     return this.http.post(this.baseURL, genre) as Observable<GenreDTO>;
   }
