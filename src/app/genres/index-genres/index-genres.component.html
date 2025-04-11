@@ -21,5 +21,15 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+    <mat-paginator
+      class="mat-elevation-z8"
+      (page)="updateTable($event)"
+      [length]="rowsCount"
+      [pageSize]="pagination.rowsPerPage"
+      [pageSizeOptions]="[5, 10, 25, 50]"
+      showFirstLastButtons
+      aria-label="Selecciona pagina"
+      >
+    </mat-paginator>
   </ng-container>
 </app-generic-list>

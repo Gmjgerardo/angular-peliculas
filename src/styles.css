@@ -31,6 +31,10 @@ mat-form-field {
   width: min-content;
 }
 
+.index-table + mat-paginator {
+  margin-top: -1rem;
+}
+
 .buttons-container-cell {
   width: 0;
 }

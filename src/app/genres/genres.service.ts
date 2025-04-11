@@ -1,8 +1,10 @@
 import { inject, Injectable } from '@angular/core';
 import { GenreCreationDTO, GenreDTO } from './genres';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { PaginationDTO } from '../shared/models/PaginationDTO';
+import { generateQueryParams } from '../shared/functions';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +15,13 @@ export class GenresService {
 
   constructor() { }
 
-  public obtainAll(): Observable<GenreDTO[]> {
-    return this.http.get<GenreDTO[]>(this.baseURL);
+  public obtainAll(pagination: PaginationDTO): Observable<HttpResponse<GenreDTO[]>> {
+    const queryParams = generateQueryParams(pagination);
+
+    return this.http.get<GenreDTO[]>(this.baseURL, {
+      params: queryParams,
+      observe: 'response',
+    });
   }
 
   public create(genre: GenreCreationDTO): Observable<GenreDTO> {
