@@ -35,4 +35,8 @@ export class GenresService {
   public update(id: number, genre: GenreCreationDTO): Observable<GenreCreationDTO> {
     return this.http.put<GenreCreationDTO>(`${this.baseURL}/${id}`, genre);
   }
+
+  public delete(id: number) : Observable<Object> {
+    return this.http.delete(`${this.baseURL}/${id}`);
+  }
 }

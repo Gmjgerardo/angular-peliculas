@@ -8,20 +8,28 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { HttpResponse } from '@angular/common/http';
 import { PaginationDTO } from '../../shared/models/PaginationDTO';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 @Component({
   selector: 'app-index-genres',
   standalone: true,
-  imports: [MatButtonModule, RouterLink, GenericListComponent, MatTableModule, MatButtonModule, RouterLink, MatPaginatorModule],
+  imports: [MatButtonModule, RouterLink, GenericListComponent, MatTableModule, MatButtonModule, RouterLink, MatPaginatorModule, SweetAlert2Module],
   templateUrl: './index-genres.component.html',
   styleUrl: './index-genres.component.css'
 })
 export class IndexGenresComponent {
-  genresService: GenresService = inject(GenresService);
+  private genresService: GenresService = inject(GenresService);
+
   genres!: GenreDTO[];
   displayedColumns: string[] = ['id', 'name', 'actions'];
   pagination: PaginationDTO = { page: 1, rowsPerPage: 5 };
   rowsCount!: number;
+  swalConfigs: Object = {
+    title: 'Confirmación',
+    text: '¿Deseas borrar este registro?',
+    showCancelButton: true,
+    cancelButtonText: 'Cancelar',
+    };
 
   constructor() {
     this.getRows();
@@ -40,5 +48,12 @@ export class IndexGenresComponent {
   updateTable(pag: PageEvent): void {
     this.pagination = { page: pag.pageIndex + 1, rowsPerPage: pag.pageSize };
     this.getRows();
+  }
+
+  deleteRow(id: number): void {
+    this.genresService.delete(id).subscribe(() => {
+      this.pagination = { page: 1, rowsPerPage: 5 };
+      this.getRows();
+    });
   }
 }
