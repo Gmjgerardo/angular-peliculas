@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { ActorCreateDTO } from './actors';
+import { ActorCreateDTO, ActorDTO } from './actors';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -12,6 +12,12 @@ export class ActorsService {
   private baseURL: string = `${environment.apiURL}/actors`;
 
   constructor() { }
+
+  public obtainAll(): Observable<HttpResponse<ActorDTO[]>> {
+    return this.http.get<ActorDTO[]>(this.baseURL, {
+      observe: 'response',
+    });
+  }
 
   public create(actor: ActorCreateDTO): Observable<ActorCreateDTO> {
     const data: FormData = this.constructFormData(actor);

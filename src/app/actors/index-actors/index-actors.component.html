@@ -1,2 +1,27 @@
 <h2>Actores</h2>
 <button mat-flat-button routerLink="/actores/crear">Crear nuevo</button>
+
+<app-generic-list [list]="actors">
+  <ng-container content>
+    <table mat-table [dataSource]="actors" class="mat-elevation-z8 index-table">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let index = index"> {{index + 1}} </td>
+      </ng-container>
+
+      <mat-text-column name="name" headerText="Nombre"></mat-text-column>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let actor" class="buttons-container-cell">
+          <div>
+            <a mat-flat-button routerLink="editar/{{actor.id}}">Editar</a>
+            <button mat-flat-button color="warn">Eliminar</button>
+          </div>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+    </table>
+  </ng-container>
+</app-generic-list>
