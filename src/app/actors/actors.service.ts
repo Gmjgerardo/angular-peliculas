@@ -3,6 +3,8 @@ import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { ActorCreateDTO, ActorDTO } from './actors';
 import { Observable } from 'rxjs';
+import { PaginationDTO } from '../shared/models/PaginationDTO';
+import { generateQueryParams } from '../shared/functions';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +15,9 @@ export class ActorsService {
 
   constructor() { }
 
-  public obtainAll(): Observable<HttpResponse<ActorDTO[]>> {
+  public obtainAll(pagination: PaginationDTO): Observable<HttpResponse<ActorDTO[]>> {
     return this.http.get<ActorDTO[]>(this.baseURL, {
+      params: generateQueryParams(pagination),
       observe: 'response',
     });
   }
