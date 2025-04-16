@@ -27,6 +27,12 @@ export class ActorsService {
     return this.http.post<ActorCreateDTO>(this.baseURL, data);
   };
 
+  public obtainById(id: number): Observable<ActorDTO> {
+    return this.http.get<ActorDTO>(`${this.baseURL}/${id}`);
+  }
+
+  
+
   private constructFormData(actor: ActorCreateDTO): FormData {
     const formData: FormData = new FormData();
 
