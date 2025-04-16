@@ -31,7 +31,9 @@ export class ActorsService {
     return this.http.get<ActorDTO>(`${this.baseURL}/${id}`);
   }
 
-  
+  public update(id: number, actor: ActorCreateDTO): Observable<ActorCreateDTO> {
+    return this.http.put<ActorCreateDTO>(`${this.baseURL}/${id}`, this.constructFormData(actor));
+  }
 
   private constructFormData(actor: ActorCreateDTO): FormData {
     const formData: FormData = new FormData();

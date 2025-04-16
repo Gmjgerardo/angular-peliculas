@@ -4,11 +4,13 @@ import { ActorCreateDTO, ActorDTO } from '../actors';
 import { ActorsService } from '../actors.service';
 import { LoadingComponent } from "../../shared/components/loading/loading.component";
 import { Router } from "@angular/router";
+import { ErrorListComponent } from "../../shared/components/error-list/error-list.component";
+import { extractErrors } from '../../shared/functions';
 
 @Component({
   selector: 'app-edit-actor',
   standalone: true,
-  imports: [ActorFormComponent, LoadingComponent],
+  imports: [ActorFormComponent, LoadingComponent, ErrorListComponent],
   templateUrl: './edit-actor.component.html',
   styleUrl: './edit-actor.component.css'
 })
@@ -19,6 +21,7 @@ export class EditActorComponent implements OnInit {
   actorsServices: ActorsService = inject(ActorsService);
   router: Router = inject(Router);
   actor!: ActorDTO;
+  errors: string[] = [];
 
   ngOnInit(): void {
     this.actorsServices.obtainById(this.id).subscribe({
@@ -32,6 +35,9 @@ export class EditActorComponent implements OnInit {
   }
 
   saveChanges(actor: ActorCreateDTO): void {
-      console.log('Editando al actor', actor);
+      this.actorsServices.update(this.actor.id, actor).subscribe({
+        next: () => this.router.navigate(["/actores"]),
+        error: (err) => this.errors = extractErrors(err),
+      });
     }
 }
