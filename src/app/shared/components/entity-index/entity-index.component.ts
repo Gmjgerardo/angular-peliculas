@@ -9,6 +9,7 @@ import { GenericListComponent } from "../generic-list/generic-list.component";
 import { RouterLink } from '@angular/router';
 import { capitalizeString } from '../../../shared/functions';
 import { CRUD_SERVICE_TOKEN } from '../../providers/providers';
+import { ICRUDService } from '../../interfaces/ICRUDService';
 
 @Component({
   selector: 'app-entity-index',
@@ -17,8 +18,8 @@ import { CRUD_SERVICE_TOKEN } from '../../providers/providers';
   templateUrl: './entity-index.component.html',
   styleUrl: './entity-index.component.css'
 })
-export class EntityIndexComponent<TDTO> implements OnInit {
-  private CRUDService = inject(CRUD_SERVICE_TOKEN) as any;
+export class EntityIndexComponent<TDTO, TCreationDTO> implements OnInit {
+  private CRUDService = inject(CRUD_SERVICE_TOKEN) as ICRUDService<TDTO, TCreationDTO>;
 
   @Input({ required: true }) title: string = '';
   @Input({ required: true }) editURL: string = '';

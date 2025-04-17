@@ -5,11 +5,12 @@ import { ActorCreateDTO, ActorDTO } from './actors';
 import { Observable } from 'rxjs';
 import { PaginationDTO } from '../shared/models/PaginationDTO';
 import { generateQueryParams } from '../shared/functions';
+import { ICRUDService } from '../shared/interfaces/ICRUDService';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ActorsService {
+export class ActorsService implements ICRUDService<ActorDTO, ActorCreateDTO> {
   private http: HttpClient = inject(HttpClient);
   private baseURL: string = `${environment.apiURL}/actors`;
 
@@ -22,9 +23,9 @@ export class ActorsService {
     });
   }
 
-  public create(actor: ActorCreateDTO): Observable<ActorCreateDTO> {
+  public create(actor: ActorCreateDTO): Observable<ActorDTO> {
     const data: FormData = this.constructFormData(actor);
-    return this.http.post<ActorCreateDTO>(this.baseURL, data);
+    return this.http.post<ActorDTO>(this.baseURL, data);
   };
 
   public obtainById(id: number): Observable<ActorDTO> {
