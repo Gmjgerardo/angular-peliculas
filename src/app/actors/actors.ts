@@ -1,7 +1,7 @@
 export interface ActorDTO {
   id: number;
   name: string;
-  birthDate: Date | null;
+  birthDate: Date;
   profileImage?: string;
 }
 

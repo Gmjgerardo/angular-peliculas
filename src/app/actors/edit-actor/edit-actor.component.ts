@@ -15,17 +15,17 @@ import { extractErrors } from '../../shared/functions';
   styleUrl: './edit-actor.component.css'
 })
 export class EditActorComponent implements OnInit {
-  @Input({ transform: numberAttribute })
-  id!: number;
+  private actorsServices: ActorsService = inject(ActorsService);
+  private router: Router = inject(Router);
 
-  actorsServices: ActorsService = inject(ActorsService);
-  router: Router = inject(Router);
+  @Input({ transform: numberAttribute }) id!: number;
+
   actor!: ActorDTO;
   errors: string[] = [];
 
   ngOnInit(): void {
     this.actorsServices.obtainById(this.id).subscribe({
-      next: (actor) => this.actor = actor,
+      next: (actor) => this.actor = {...actor, birthDate: new Date(actor.birthDate)},
       error: (err) => { 
         // ToDo: Show NotFound error
         console.log(err);
@@ -35,7 +35,7 @@ export class EditActorComponent implements OnInit {
   }
 
   saveChanges(actor: ActorCreateDTO): void {
-      this.actorsServices.update(this.actor.id, actor).subscribe({
+      this.actorsServices.update(this.id, actor).subscribe({
         next: () => this.router.navigate(["/actores"]),
         error: (err) => this.errors = extractErrors(err),
       });
