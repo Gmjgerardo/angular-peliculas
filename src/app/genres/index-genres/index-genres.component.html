@@ -1,39 +1,5 @@
-<h2>Géneros</h2>
-
-<button mat-flat-button routerLink="/generos/crear">Crear nuevo</button>
-
-<app-generic-list [list]="genres">
-  <ng-container content>
-    <table mat-table [dataSource]="genres" class="mat-elevation-z8 index-table">
-      <mat-text-column name="id" headerText="ID"></mat-text-column>
-      <mat-text-column name="name" headerText="Nombre"></mat-text-column>
-
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef>Acciones</th>
-        <td mat-cell *matCellDef="let genre" class="buttons-container-cell">
-          <div>
-            <a mat-flat-button routerLink="/generos/editar/{{genre.id}}">Editar</a>
-            <button mat-flat-button color="warn"
-              [swal]="swalConfigs"
-              (confirm)="deleteRow(genre.id)"
-              >Borrar</button>
-          </div>
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-    <mat-paginator
-      class="mat-elevation-z8"
-      (page)="updateTable($event)"
-      [length]="rowsCount"
-      [pageIndex]="pagination.page - 1"
-      [pageSize]="pagination.rowsPerPage"
-      [pageSizeOptions]="[5, 10, 25, 50]"
-      showFirstLastButtons
-      aria-label="Selecciona pagina"
-      >
-    </mat-paginator>
-  </ng-container>
-</app-generic-list>
+<app-entity-index
+  title="Generos"
+  editURL="generos"
+  >
+</app-entity-index>
