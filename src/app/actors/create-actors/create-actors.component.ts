@@ -1,28 +1,17 @@
-import { Component, inject } from '@angular/core';
-import { ActorFormComponent } from "../actor-form/actor-form.component";
-import { ActorCreateDTO } from '../actors';
+import { Component } from '@angular/core';
 import { ActorsService } from '../actors.service';
-import { Router } from '@angular/router';
-import { ErrorListComponent } from "../../shared/components/error-list/error-list.component";
-import { extractErrors } from '../../shared/functions';
+import { EntityCreateComponent } from "../../shared/components/entity-create/entity-create.component";
+import { CRUD_SERVICE_TOKEN } from '../../shared/providers/providers';
+import { ActorFormComponent } from '../actor-form/actor-form.component';
 
 @Component({
   selector: 'app-create-actors',
   standalone: true,
-  imports: [ActorFormComponent, ErrorListComponent],
+  imports: [EntityCreateComponent],
   templateUrl: './create-actors.component.html',
-  styleUrl: './create-actors.component.css'
+  styleUrl: './create-actors.component.css',
+  providers: [{ provide: CRUD_SERVICE_TOKEN, useClass: ActorsService }],
 })
 export class CreateActorsComponent {
-  private actorService: ActorsService = inject(ActorsService);
-  private router: Router = inject(Router);
-
-  errors: string[] = [];
-
-  saveChanges(actor: ActorCreateDTO): void {
-    this.actorService.create(actor).subscribe({
-      next: () => this.router.navigate(["/actores"]),
-      error: (err) => this.errors = extractErrors(err),
-    });
-  }
+  actorForm: typeof ActorFormComponent = ActorFormComponent;
 }

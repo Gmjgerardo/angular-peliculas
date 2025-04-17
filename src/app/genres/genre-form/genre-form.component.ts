@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RouterLink } from '@angular/router';
 import { GenreCreationDTO, GenreDTO } from '../genres';
+import { IFormComponent } from '../../shared/interfaces/IFormComponent';
 
 @Component({
   selector: 'app-genre-form',
@@ -14,7 +15,7 @@ import { GenreCreationDTO, GenreDTO } from '../genres';
   templateUrl: './genre-form.component.html',
   styleUrl: './genre-form.component.css'
 })
-export class GenreFormComponent implements OnInit {
+export class GenreFormComponent implements IFormComponent<GenreDTO, GenreCreationDTO>, OnInit {
   private formBuilder: FormBuilder = inject(FormBuilder);
 
   @Input()

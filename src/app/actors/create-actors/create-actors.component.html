@@ -1,4 +1,5 @@
-<h2>Crear Actor</h2>
-
-<app-error-list [errors]="errors"></app-error-list>
-<app-actor-form (postSendEvent)="saveChanges($event)"></app-actor-form>
+<app-entity-create
+  title="Actor"
+  indexRoute="/actores"
+  [form]="actorForm">
+</app-entity-create>

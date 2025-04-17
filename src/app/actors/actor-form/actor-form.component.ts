@@ -8,6 +8,7 @@ import { RouterLink } from '@angular/router';
 import { ActorCreateDTO, ActorDTO } from '../actors';
 import { dateBeforeToday } from '../../shared/functions/validations';
 import { InputImgComponent } from "../../shared/components/input-img/input-img.component";
+import { IFormComponent } from '../../shared/interfaces/IFormComponent';
 
 @Component({
   selector: 'app-actor-form',
@@ -16,7 +17,7 @@ import { InputImgComponent } from "../../shared/components/input-img/input-img.c
   templateUrl: './actor-form.component.html',
   styleUrl: './actor-form.component.css'
 })
-export class ActorFormComponent implements OnInit {
+export class ActorFormComponent implements IFormComponent<ActorDTO, ActorCreateDTO>, OnInit {
   private formBuilder: FormBuilder = inject(FormBuilder);
 
   @Input()
