@@ -1,0 +1,17 @@
+.index-table {
+  margin-block: 1rem;
+}
+
+.index-table .buttons-container-cell > div:first-child {
+  display: flex;
+  column-gap: .5rem;
+  width: min-content;
+}
+
+.index-table + mat-paginator {
+  margin-top: -1rem;
+}
+
+.buttons-container-cell {
+  width: 0;
+}
