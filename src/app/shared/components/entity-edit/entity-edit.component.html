@@ -1,0 +1,8 @@
+<h2>Editar {{ title }}</h2>
+
+<app-error-list [errors]="errors"></app-error-list>
+<ng-template #formContainer></ng-template>
+
+@if (loading) {
+  <app-loading></app-loading>
+}
