@@ -2,7 +2,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { ActorCreateDTO, ActorDTO } from './actors';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { PaginationDTO } from '../shared/models/PaginationDTO';
 import { generateQueryParams } from '../shared/functions';
 import { ICRUDService } from '../shared/interfaces/ICRUDService';
@@ -29,7 +29,14 @@ export class ActorsService implements ICRUDService<ActorDTO, ActorCreateDTO> {
   };
 
   public obtainById(id: number): Observable<ActorDTO> {
-    return this.http.get<ActorDTO>(`${this.baseURL}/${id}`);
+    return this.http.get<ActorDTO>(`${this.baseURL}/${id}`).pipe(
+      map((actor: ActorDTO) => {
+        if(typeof (actor.birthDate) === 'string')
+          actor.birthDate = new Date(actor.birthDate);
+        
+        return actor;
+      })
+    );
   }
 
   public update(id: number, actor: ActorCreateDTO): Observable<ActorCreateDTO> {

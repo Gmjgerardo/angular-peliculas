@@ -1,43 +1,18 @@
-import { Component, inject, Input, numberAttribute, OnInit } from '@angular/core';
+import { Component, Input, numberAttribute } from '@angular/core';
 import { ActorFormComponent } from "../actor-form/actor-form.component";
-import { ActorCreateDTO, ActorDTO } from '../actors';
 import { ActorsService } from '../actors.service';
-import { LoadingComponent } from "../../shared/components/loading/loading.component";
-import { Router } from "@angular/router";
-import { ErrorListComponent } from "../../shared/components/error-list/error-list.component";
-import { extractErrors } from '../../shared/functions';
+import { EntityEditComponent } from "../../shared/components/entity-edit/entity-edit.component";
+import { CRUD_SERVICE_TOKEN } from '../../shared/providers/providers';
 
 @Component({
   selector: 'app-edit-actor',
   standalone: true,
-  imports: [ActorFormComponent, LoadingComponent, ErrorListComponent],
+  imports: [EntityEditComponent],
   templateUrl: './edit-actor.component.html',
-  styleUrl: './edit-actor.component.css'
+  styleUrl: './edit-actor.component.css',
+  providers: [{ provide: CRUD_SERVICE_TOKEN, useClass: ActorsService }]
 })
-export class EditActorComponent implements OnInit {
-  private actorsServices: ActorsService = inject(ActorsService);
-  private router: Router = inject(Router);
-
+export class EditActorComponent {
   @Input({ transform: numberAttribute }) id!: number;
-
-  actor!: ActorDTO;
-  errors: string[] = [];
-
-  ngOnInit(): void {
-    this.actorsServices.obtainById(this.id).subscribe({
-      next: (actor) => this.actor = {...actor, birthDate: new Date(actor.birthDate)},
-      error: (err) => { 
-        // ToDo: Show NotFound error
-        console.log(err);
-        setTimeout(() => this.router.navigate(['/actores']), 2500);
-      }
-    });
-  }
-
-  saveChanges(actor: ActorCreateDTO): void {
-      this.actorsServices.update(this.id, actor).subscribe({
-        next: () => this.router.navigate(["/actores"]),
-        error: (err) => this.errors = extractErrors(err),
-      });
-    }
+  actorFormComponent: typeof ActorFormComponent = ActorFormComponent;
 }
