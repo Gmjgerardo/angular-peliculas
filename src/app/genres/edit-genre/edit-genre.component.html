@@ -1,8 +1,7 @@
-<h2>Editar Género</h2>
-
-@if (genre) {
-  <app-error-list [errors]="errors"></app-error-list>
-  <app-genre-form (postSendEvent)="saveChanges($event)" [model]="genre"></app-genre-form>
-} @else {
-  <app-loading></app-loading>
-}
+<app-entity-edit
+  [id]="id"
+  title="Género"
+  indexRoute="/generos"
+  [form]="formComponent"
+  >
+</app-entity-edit>

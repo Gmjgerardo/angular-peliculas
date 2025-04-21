@@ -1,37 +1,18 @@
-import { Component, inject, Input, numberAttribute, OnInit } from '@angular/core';
+import { Component, Input, numberAttribute } from '@angular/core';
 import { GenreFormComponent } from "../genre-form/genre-form.component";
-import { GenreCreationDTO, GenreDTO } from '../genres';
 import { GenresService } from '../genres.service';
-import { LoadingComponent } from "../../shared/components/loading/loading.component";
-import { ErrorListComponent } from "../../shared/components/error-list/error-list.component";
-import { Router } from '@angular/router';
-import { extractErrors } from '../../shared/functions';
+import { EntityEditComponent } from "../../shared/components/entity-edit/entity-edit.component";
+import { CRUD_SERVICE_TOKEN } from '../../shared/providers/providers';
 
 @Component({
   selector: 'app-edit-genre',
   standalone: true,
-  imports: [GenreFormComponent, LoadingComponent, ErrorListComponent],
+  imports: [EntityEditComponent],
   templateUrl: './edit-genre.component.html',
-  styleUrl: './edit-genre.component.css'
+  styleUrl: './edit-genre.component.css',
+  providers: [{ provide: CRUD_SERVICE_TOKEN, useClass: GenresService }]
 })
-export class EditGenreComponent implements OnInit {
-  // Injects
-  private genreServie: GenresService = inject(GenresService);
-  private router: Router = inject(Router);
-
-  @Input({ transform: numberAttribute })
-  id!: number;
-  genre?: GenreDTO;
-  errors: string[] = [];
-
-  ngOnInit(): void {
-    this.genreServie.obtainById(this.id).subscribe((genre) => this.genre = genre);
-  }
-
-  saveChanges(genre: GenreCreationDTO): void {
-    this.genreServie.update(this.id, genre).subscribe({
-      next: () => this.router.navigate(['/generos']),
-      error: (err) => this.errors = extractErrors(err),
-    });
-  }
+export class EditGenreComponent {
+  @Input({ transform: numberAttribute }) id!: number;
+  formComponent: typeof GenreFormComponent  = GenreFormComponent;
 }
