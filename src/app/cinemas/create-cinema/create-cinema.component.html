@@ -1,3 +1,5 @@
-<h2>Crear Cine</h2>
-
-<app-cinema-form (postSendEvent)="saveChanges($event)"></app-cinema-form>
+<app-entity-create
+  title="Cine"
+  indexRoute="cines"
+  [form]="cinemaForm"
+/>

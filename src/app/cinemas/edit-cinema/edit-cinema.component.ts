@@ -1,22 +1,20 @@
 import { Component, Input, numberAttribute } from '@angular/core';
 import { CinemaFormComponent } from "../cinema-form/cinema-form.component";
-import { CinemaCreateDTO, CinemaDTO } from '../cinemas';
+import { EntityEditComponent } from "../../shared/components/entity-edit/entity-edit.component";
+import { CRUD_SERVICE_TOKEN } from '../../shared/providers/providers';
+import { CinemasService } from '../cinemas.service';
 
 @Component({
   selector: 'app-edit-cinema',
   standalone: true,
-  imports: [CinemaFormComponent],
+  imports: [EntityEditComponent],
   templateUrl: './edit-cinema.component.html',
-  styleUrl: './edit-cinema.component.css'
+  styleUrl: './edit-cinema.component.css',
+  providers: [{ provide: CRUD_SERVICE_TOKEN, useClass: CinemasService }],
 })
 export class EditCinemaComponent {
   @Input({ transform: numberAttribute })
   id!: number;
 
-  // Static value for testing
-  cinema: CinemaDTO = { id: 23, name: 'FORUM Tlaquepaque', lat: 20.648204004447127, lng: -103.31999658139843 }
-
-  saveChanges(cinema: CinemaCreateDTO): void {
-    console.log('Editando:', cinema);
-  }
+  cinemaForm: typeof CinemaFormComponent = CinemaFormComponent;
 }

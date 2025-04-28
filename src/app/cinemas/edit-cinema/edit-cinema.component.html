@@ -1,3 +1,6 @@
-<h2>Editar Cine</h2>
-
-<app-cinema-form [model]="cinema" (postSendEvent)="saveChanges($event)"></app-cinema-form>
+<app-entity-edit
+  [id]="id"
+  title="Cine"
+  indexRoute="cines"
+  [form]="cinemaForm"
+/>
