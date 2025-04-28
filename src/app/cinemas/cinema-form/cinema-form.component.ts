@@ -35,7 +35,7 @@ export class CinemaFormComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.model) {
-      const { lat, lng } = this.model;
+      const { latitude: lat, longitude: lng } = this.model;
       let model = {...this.model, coordinates: {lat, lng}}
 
       this.initialCoordinates.push({ lat, lng } as Coordinate);
@@ -55,7 +55,8 @@ export class CinemaFormComponent implements OnInit {
 
   saveChanges(): void {
     if (this.form.valid) {
-      const cinema: CinemaCreateDTO = this.form.value as CinemaCreateDTO;
+      const {lat: latitude, lng: longitude} = this.form.value.coordinates as Coordinate;
+      const cinema: CinemaCreateDTO = {...this.form.value, latitude, longitude} as CinemaCreateDTO;
       this.postSendEvent.emit(cinema);
     }
   }
