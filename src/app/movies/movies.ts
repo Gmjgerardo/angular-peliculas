@@ -9,7 +9,6 @@ export interface MovieDTO {
 }
 
 export interface MovieCreateDTO {
-  id: number;
   title: string;
   releaseDate: Date;
   trailer?: string;
