@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
@@ -9,6 +9,7 @@ import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-
 import { ActorAutocompleteDTO } from '../actors';
 import { map, Observable, startWith } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+import { ActorsService } from '../actors.service';
 
 @Component({
   selector: 'app-automplete-actors',
@@ -20,19 +21,14 @@ import { AsyncPipe } from '@angular/common';
   styleUrl: './automplete-actors.component.css'
 })
 export class AutompleteActorsComponent implements OnInit {
+  private actorService: ActorsService = inject(ActorsService);
+
   @ViewChild(MatTable) table !: MatTable<ActorAutocompleteDTO>;
 
   control: FormControl = new FormControl();
   filterOptions!: Observable<ActorAutocompleteDTO[]>;
 
-  actors: ActorAutocompleteDTO[] = [
-    {id: 1, name: 'Natalie Portman', character: '', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Natalie_Portman_2023.jpg/220px-Natalie_Portman_2023.jpg'},
-    {id: 2, name: 'Hayden Christensen', character: '', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Hayden-cfda2010-0004%281%29_%28cropped%29.jpg/220px-Hayden-cfda2010-0004%281%29_%28cropped%29.jpg'},
-    {id: 3, name: 'Ewan McGregor', character: '', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/EwanMcGregor2023.jpg/220px-EwanMcGregor2023.jpg'},
-    {id: 4, name: 'Chris Hemsworth', character: '', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Chris_Hemsworth_by_Gage_Skidmore_3.jpg/250px-Chris_Hemsworth_by_Gage_Skidmore_3.jpg'},
-    {id: 5, name: 'Scarlett Johansson', character: '', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Goldene_Kamera_2012_-_Scarlett_Johansson_5_%28cropped%29.jpg/250px-Goldene_Kamera_2012_-_Scarlett_Johansson_5_%28cropped%29.jpg'},
-    {id: 6, name: 'Tom Hiddleston', character: '', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Tom_Hiddleston_at_the_2024_Toronto_International_Film_Festival_%28cropped%29.jpg/250px-Tom_Hiddleston_at_the_2024_Toronto_International_Film_Festival_%28cropped%29.jpg'},
-  ];
+  actors: ActorAutocompleteDTO[] = [];
 
   @Input({ required: true })
   selectedActors: ActorAutocompleteDTO[] = [];
@@ -40,14 +36,18 @@ export class AutompleteActorsComponent implements OnInit {
   displayedColumns: string[] = ['image', 'name', 'character', 'actions'];
 
   ngOnInit(): void {
+    // Obtaining all actors to show in the actors array
+    this.actorService.getAll().subscribe(actors => this.actors = actors);
+
+    // Adding filter function to use when name input changes
     this.filterOptions = this.control.valueChanges.pipe(
       startWith(''),
-      map(value => this._filter(value || '')),
+      map((value: string) => this._filter(value || '')),
     );
   }
 
   private _filter(name: string): ActorAutocompleteDTO[] {
-    return this.actors.filter(actor => actor.name.toLowerCase().includes(name.toLowerCase()));
+    return this.actors.filter(actor => actor.name.toLowerCase().includes(name?.toLocaleLowerCase?.()));
   }
 
   selectActor(event: MatAutocompleteSelectedEvent): void {

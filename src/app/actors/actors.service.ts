@@ -1,7 +1,7 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { ActorCreateDTO, ActorDTO } from './actors';
+import { ActorAutocompleteDTO, ActorCreateDTO, ActorDTO } from './actors';
 import { map, Observable } from 'rxjs';
 import { PaginationDTO } from '../shared/models/PaginationDTO';
 import { generateQueryParams } from '../shared/functions';
@@ -21,6 +21,10 @@ export class ActorsService implements ICRUDService<ActorDTO, ActorCreateDTO> {
       params: generateQueryParams(pagination),
       observe: 'response',
     });
+  }
+
+  public getAll(): Observable<ActorAutocompleteDTO[]> {
+    return this.http.get<ActorAutocompleteDTO[]>(`${this.baseURL}/all`);
   }
 
   public create(actor: ActorCreateDTO): Observable<ActorDTO> {
