@@ -2,7 +2,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { ICRUDService } from '../shared/interfaces/ICRUDService';
-import { MovieCreateDTO, MovieDTO, MoviePostGetDTO } from './movies';
+import { MovieCreateDTO, MovieDTO, MoviePostGetDTO, LandingPageDTO } from './movies';
 import { Observable } from 'rxjs';
 import { PaginationDTO } from '../shared/models/PaginationDTO';
 import { ActorAutocompleteDTO } from '../actors/actors';
@@ -15,6 +15,10 @@ export class MoviesService implements ICRUDService<MovieDTO, MovieCreateDTO> {
   private baseURL: string = `${environment.apiURL}/movies`;
 
   constructor() { }
+
+  public getLandingPageData(): Observable<LandingPageDTO> {
+    return this.http.get<LandingPageDTO>(`${this.baseURL}/landing`);
+  }
 
   public createGet(): Observable<MoviePostGetDTO> {
     return this.http.get<MoviePostGetDTO>(`${this.baseURL}/PostGet`);

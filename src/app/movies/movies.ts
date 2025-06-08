@@ -24,3 +24,8 @@ export interface MoviePostGetDTO {
   genres: GenreDTO[];
   cinemas: CinemaDTO[];
 }
+
+export interface LandingPageDTO {
+  onCinemas: MovieDTO[];
+  upcoming: MovieDTO[];
+}
