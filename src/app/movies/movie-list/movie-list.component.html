@@ -9,7 +9,7 @@
           <a>
             <p>{{ movie.title }}</p>
           </a>
-          <button mat-flat-button>Editar</button>
+          <a mat-flat-button [routerLink]="['/peliculas/editar/', movie.id]">Editar</a>
           <button mat-flat-button color="warn">
             Borrar
           </button>
