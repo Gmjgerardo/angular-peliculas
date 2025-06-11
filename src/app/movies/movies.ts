@@ -29,3 +29,12 @@ export interface LandingPageDTO {
   onCinemas: MovieDTO[];
   upcoming: MovieDTO[];
 }
+
+export interface MoviePutGetDTO {
+  movie: MovieDTO,
+  selectedGenres: GenreDTO[];
+  notSelectedGenres: GenreDTO[];
+  selectedCinemas: CinemaDTO[];
+  notSelectedCinemas: CinemaDTO[];
+  actors: ActorAutocompleteDTO[];
+}

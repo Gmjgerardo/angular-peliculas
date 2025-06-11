@@ -2,7 +2,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { ICRUDService } from '../shared/interfaces/ICRUDService';
-import { MovieCreateDTO, MovieDTO, MoviePostGetDTO, LandingPageDTO } from './movies';
+import { MovieCreateDTO, MovieDTO, MoviePostGetDTO, LandingPageDTO, MoviePutGetDTO } from './movies';
 import { Observable } from 'rxjs';
 import { PaginationDTO } from '../shared/models/PaginationDTO';
 import { ActorAutocompleteDTO } from '../actors/actors';
@@ -40,6 +40,10 @@ export class MoviesService implements ICRUDService<MovieDTO, MovieCreateDTO> {
     const formData = this.constructFormData(movieCreate);
 
     return this.http.post<MovieDTO>(this.baseURL, formData);
+  }
+
+  public updateGet(id: number): Observable<MoviePutGetDTO> {
+    return this.http.get<MoviePutGetDTO>(`${this.baseURL}/PutGet/${id}`);
   }
 
   public update(id: number, entity: MovieCreateDTO): Observable<MovieCreateDTO> {

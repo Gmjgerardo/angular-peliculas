@@ -1,7 +1,11 @@
 <h2>Editar Película</h2>
 
-<app-movie-form (onPostSendEvent)="saveChanges($event)" [model]="movie"
-  [selectedGenres]="selectedGenres" [notSelectedGenres]="notSelectedGenres"
-  [selectedCinemas]="selectedCinemas" [notSelectedCinemas]="notSelectedCinemas"
-  [selectedActors]="selectedActors">
-</app-movie-form>
+@if (notSelectedGenres) {
+  <app-movie-form (onPostSendEvent)="saveChanges($event)" [model]="movie"
+    [selectedGenres]="selectedGenres" [notSelectedGenres]="notSelectedGenres"
+    [selectedCinemas]="selectedCinemas" [notSelectedCinemas]="notSelectedCinemas"
+    [selectedActors]="selectedActors">
+  </app-movie-form>
+} @else {
+  <app-loading />
+}
