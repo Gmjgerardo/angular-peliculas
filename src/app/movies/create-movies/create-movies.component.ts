@@ -23,7 +23,6 @@ export class CreateMoviesComponent {
   notSelectedGenres: MultipleSelectorDTO[] = [];
   selectedCinemas: MultipleSelectorDTO[] = [];
   notSelectedCinemas: MultipleSelectorDTO[] = [];
-  selectedActors: MultipleSelectorDTO[] = [];
   errors: string[] = [];
 
   constructor() {
