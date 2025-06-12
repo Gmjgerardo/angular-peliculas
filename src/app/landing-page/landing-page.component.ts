@@ -17,6 +17,10 @@ export class LandingPageComponent {
   moviesUpcoming!: MovieDTO[];
 
   constructor() {
+    this.loadMovies();
+  }
+
+  loadMovies(): void {
     this.moviesService.getLandingPageData().subscribe({
       next: ({onCinemas, upcoming}) => {
         this.moviesOnCinema = onCinemas;

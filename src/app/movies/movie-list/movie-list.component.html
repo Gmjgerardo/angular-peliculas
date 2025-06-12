@@ -10,7 +10,9 @@
             <p>{{ movie.title }}</p>
           </a>
           <a mat-flat-button [routerLink]="['/peliculas/editar/', movie.id]">Editar</a>
-          <button mat-flat-button color="warn">
+          <button mat-flat-button color="warn"
+            [swal]="swalConfigs"
+            (confirm)="delete(movie.id)">
             Borrar
           </button>
         </div>

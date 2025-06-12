@@ -1,5 +1,5 @@
 <h2>En Cines</h2>
-<app-movie-list [movies]="moviesOnCinema"></app-movie-list>
+<app-movie-list [movies]="moviesOnCinema" (onMovieDeleted)="loadMovies()"></app-movie-list>
 
 <h2>Próximos estrenos</h2>
-<app-movie-list [movies]="moviesUpcoming"></app-movie-list>
+<app-movie-list [movies]="moviesUpcoming" (onMovieDeleted)="loadMovies()"></app-movie-list>

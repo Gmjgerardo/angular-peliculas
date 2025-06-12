@@ -52,7 +52,7 @@ export class MoviesService implements ICRUDService<MovieDTO, MovieCreateDTO> {
   }
 
   public delete(id: number): Observable<Object> {
-    throw new Error('Method not implemented.');
+    return this.http.delete(`${this.baseURL}/${id}`);
   }
 
   private constructFormData(movie: MovieCreateDTO): FormData {
