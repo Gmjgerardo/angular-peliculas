@@ -46,8 +46,9 @@ export class MoviesService implements ICRUDService<MovieDTO, MovieCreateDTO> {
     return this.http.get<MoviePutGetDTO>(`${this.baseURL}/PutGet/${id}`);
   }
 
-  public update(id: number, entity: MovieCreateDTO): Observable<MovieCreateDTO> {
-    throw new Error('Method not implemented.');
+  public update(id: number, movie: MovieCreateDTO): Observable<MovieCreateDTO> {
+    const formData = this.constructFormData(movie);
+    return this.http.put<MovieCreateDTO>(`${this.baseURL}/${id}`, formData);
   }
 
   public delete(id: number): Observable<Object> {

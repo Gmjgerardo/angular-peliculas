@@ -5,16 +5,20 @@ import { MultipleSelectorDTO } from '../../shared/components/multiple-selector/M
 import { ActorAutocompleteDTO } from '../../actors/actors';
 import { MoviesService } from '../movies.service';
 import { LoadingComponent } from "../../shared/components/loading/loading.component";
+import { ErrorListComponent } from "../../shared/components/error-list/error-list.component";
+import { extractErrors } from '../../shared/functions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-movie',
   standalone: true,
-  imports: [MovieFormComponent, LoadingComponent],
+  imports: [MovieFormComponent, LoadingComponent, ErrorListComponent],
   templateUrl: './edit-movie.component.html',
   styleUrl: './edit-movie.component.css'
 })
 export class EditMovieComponent implements OnInit {
   private movieService: MoviesService = inject(MoviesService);
+  private router: Router = inject(Router);
 
   @Input({ transform: numberAttribute })
   id!: number;
@@ -25,6 +29,7 @@ export class EditMovieComponent implements OnInit {
   selectedCinemas!: MultipleSelectorDTO[];
   notSelectedCinemas!: MultipleSelectorDTO[];
   selectedActors!: ActorAutocompleteDTO[];
+  errors: string[] = [];
 
   ngOnInit(): void {
     this.movieService.updateGet(this.id).subscribe({
@@ -36,11 +41,14 @@ export class EditMovieComponent implements OnInit {
         this.notSelectedCinemas = movieDTO.notSelectedCinemas.map(cinema => <MultipleSelectorDTO>{key: cinema.id, value: cinema.name});
         this.selectedActors = movieDTO.actors;
       },
-      error: (err) => console.error('An Error occurred when retrieve movie information process',err),
+      error: (err) => console.error('An Error occurred when retrieve movie information process', err),
     });
   }
 
   saveChanges(movie: MovieCreateDTO): void {
-    console.log('Editando:', movie);
+    this.movieService.update(this.id, movie).subscribe({
+      next: () => this.router.navigate(["/"]),
+      error: (err) => this.errors = extractErrors(err),
+    });
   }
 }

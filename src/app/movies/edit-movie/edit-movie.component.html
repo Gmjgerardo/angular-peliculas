@@ -1,6 +1,7 @@
 <h2>Editar Película</h2>
 
 @if (notSelectedGenres) {
+  <app-error-list [errors]="errors" />
   <app-movie-form (onPostSendEvent)="saveChanges($event)" [model]="movie"
     [selectedGenres]="selectedGenres" [notSelectedGenres]="notSelectedGenres"
     [selectedCinemas]="selectedCinemas" [notSelectedCinemas]="notSelectedCinemas"
