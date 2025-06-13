@@ -19,3 +19,8 @@ p {
 button {
   margin-inline: 0.50rem;
 }
+
+a {
+  text-decoration: none;
+  color: black;
+}

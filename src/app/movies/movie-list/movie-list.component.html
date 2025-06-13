@@ -3,10 +3,8 @@
     <div class="movies-container">
       @for (movie of movies; track $index) {
         <div class="movie-container">
-          <a>
+          <a [routerLink]="['/peliculas/', movie.id]">
             <img [ngSrc]="movie.image || 'default.jpg'" [priority]="$index === 0" width="169" height="250">
-          </a>
-          <a>
             <p>{{ movie.title }}</p>
           </a>
           <a mat-flat-button [routerLink]="['/peliculas/editar/', movie.id]">Editar</a>
