@@ -43,7 +43,9 @@ export class MapComponent implements OnInit {
 
   ngOnInit(): void {
     // Convert coordinate points into markers to show in the map
-    this.markers = this.initialCoordinates.map(point => marker([point.lat, point.lng], this.markerOptions)) as unknown as Marker<any>[];
+    this.markers = this.initialCoordinates.map(point => marker([point.lat, point.lng], this.markerOptions)
+                                          .bindPopup(point.text ?? '', {autoClose: false, autoPan: false})
+    ) as unknown as Marker<any>[];
   }
 
   clickHandle(event: LeafletMouseEvent): void {
