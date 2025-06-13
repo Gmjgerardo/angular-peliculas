@@ -16,6 +16,7 @@ export class MapComponent implements OnInit {
   @Input() initialCoordinates: Coordinate[] = [];
   @Input() height: number = 200;
   @Input() width: number = 200;
+  @Input() readonly: boolean = false;
 
   markers: Marker<any>[] = [];
 
@@ -46,10 +47,12 @@ export class MapComponent implements OnInit {
   }
 
   clickHandle(event: LeafletMouseEvent): void {
-    const {lat, lng } = event.latlng;
-
-    this.markers = [];
-    this.markers.push(marker([lat, lng], this.markerOptions))
-    this.selectedCoordinate.emit({lat, lng} as Coordinate);
+    if (!this.readonly) {
+      const {lat, lng } = event.latlng;
+  
+      this.markers = [];
+      this.markers.push(marker([lat, lng], this.markerOptions))
+      this.selectedCoordinate.emit({lat, lng} as Coordinate);
+    }
   }
 }
