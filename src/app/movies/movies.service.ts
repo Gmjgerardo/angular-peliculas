@@ -29,7 +29,7 @@ export class MoviesService implements ICRUDService<MovieDTO, MovieCreateDTO> {
   }
 
   public obtainById(id: number): Observable<MovieDTO> {
-    throw new Error('Method not implemented.');
+    return this.http.get<MovieDTO>(`${this.baseURL}/${id}`);
   }
 
   public obtainActorByName(name: string): Observable<ActorAutocompleteDTO[]> {

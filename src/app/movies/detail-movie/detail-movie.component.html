@@ -1,0 +1,46 @@
+@if (movie) {
+  <div>
+    <h2>{{ movie.title }} ({{ movie.releaseDate.getFullYear() }})</h2>
+    <mat-chip-listbox>
+      @for (genre of movie.genres; track $index) {
+        <mat-chip>{{genre.name}}</mat-chip>
+      }
+    </mat-chip-listbox> | {{ movie.releaseDate.toLocaleDateString() }} | Promedio: 0.0 | Tu voto: 0.0
+
+    <div class="container">
+      <span>
+        <img [src]="movie.image" alt="{{ movie.title }} poster" width="225" height="315">
+      </span>
+      @if (movie.trailer) {
+        <div>
+          <iframe [src]="trailerURL" frameborder="0" width="565" height="315" allowfullscreen
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share">
+          </iframe>
+        </div>
+      }
+    </div>
+    @if (movie.actors) {
+      <section class="actors-section">
+        <h3>Actores</h3>
+        <div class="container">
+          @for (actor of movie.actors; track $index) {
+            <div class="actor-container">
+              <img [src]="actor.image" alt="{{actor.name}} image" />
+              <span class="name">{{actor.name}}</span>
+              <span class="dots">...</span>
+              <span>{{actor.character}}</span>
+            </div>
+          }
+        </div>
+      </section>
+    }
+    @if (coordinates.length > 0) {
+      <div>
+        <h3>Mostrándose en los siguientes cines</h3>
+        <app-map [width]=900 [height]=450 [initialCoordinates]="coordinates" [readonly]="true" />
+      </div>
+    }
+  </div>
+} @else {
+  <app-loading />
+}

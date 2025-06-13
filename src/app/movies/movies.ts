@@ -8,6 +8,9 @@ export interface MovieDTO {
   releaseDate: Date;
   trailer?: string;
   image?: string;
+  genres?: GenreDTO[];
+  cinemas?: CinemaDTO[];
+  actors?: ActorAutocompleteDTO[];
 }
 
 export interface MovieCreateDTO {

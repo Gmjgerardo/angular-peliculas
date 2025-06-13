@@ -1,0 +1,42 @@
+mat-chip-listbox {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+
+.container {
+  display: flex;
+}
+
+.container span {
+  display: inline-block;
+  margin-right: 1rem;
+}
+
+section.actors-section {
+  margin-top: 1rem;
+}
+
+section.actors-section .container {
+  display: flex;
+  flex-direction: column;
+}
+
+section.actors-section .container .actor-container {
+  margin-top: 0.5rem;
+}
+
+section.actors-section .container img {
+  width: 50px;
+  vertical-align: middle;
+  margin-right: 1rem;
+}
+
+section.actors-section .container .name {
+  display: inline-block;
+  width: 200px;
+}
+
+section.actors-section .container .dots {
+  display: inline-block;
+  width: 45px;
+}
