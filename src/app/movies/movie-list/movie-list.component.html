@@ -5,14 +5,18 @@
         <div class="movie-container">
           <a [routerLink]="['/peliculas/', movie.id]">
             <img [ngSrc]="movie.image || 'default.jpg'" [priority]="$index === 0" width="169" height="250">
-            <p>{{ movie.title }}</p>
           </a>
-          <a mat-flat-button [routerLink]="['/peliculas/editar/', movie.id]">Editar</a>
-          <button mat-flat-button color="warn"
-            [swal]="swalConfigs"
-            (confirm)="delete(movie.id)">
-            Borrar
-          </button>
+          <a [routerLink]="['/peliculas/', movie.id]">
+            <p class="title">{{ movie.title }}</p>
+          </a>
+          <div class="buttons-container">
+            <a mat-flat-button [routerLink]="['/peliculas/editar/', movie.id]">Editar</a>
+            <button mat-flat-button color="warn"
+              [swal]="swalConfigs"
+              (confirm)="delete(movie.id)">
+              Borrar
+            </button>
+          </div>
         </div>
       }
     </div>
