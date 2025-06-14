@@ -25,6 +25,10 @@ export class GenresService implements ICRUDService<GenreDTO, GenreCreationDTO> {
     });
   }
 
+  public obtainForFilter(): Observable<GenreDTO[]> {
+    return this.http.get<GenreDTO[]>(`${this.baseURL}/all`);
+  }
+
   public obtainById(id: number): Observable<GenreDTO> {
     return this.http.get<GenreDTO>(`${this.baseURL}/${id}`);
   }
