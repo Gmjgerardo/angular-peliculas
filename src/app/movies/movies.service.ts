@@ -1,4 +1,4 @@
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { ICRUDService } from '../shared/interfaces/ICRUDService';
@@ -6,6 +6,7 @@ import { MovieCreateDTO, MovieDTO, MoviePostGetDTO, LandingPageDTO, MoviePutGetD
 import { Observable } from 'rxjs';
 import { PaginationDTO } from '../shared/models/PaginationDTO';
 import { ActorAutocompleteDTO } from '../actors/actors';
+import { MovieFilter } from './movie-filter/movieFilter';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,15 @@ export class MoviesService implements ICRUDService<MovieDTO, MovieCreateDTO> {
 
   public obtainById(id: number): Observable<MovieDTO> {
     return this.http.get<MovieDTO>(`${this.baseURL}/${id}`);
+  }
+
+  public filter(values: any | MovieFilter): Observable<HttpResponse<MovieDTO[]>> {
+    const params = new HttpParams({fromObject: values});
+
+    return this.http.get<MovieDTO[]>(`${this.baseURL}/filter`, {
+      params: params,
+      observe: 'response',
+    });
   }
 
   public obtainActorByName(name: string): Observable<ActorAutocompleteDTO[]> {
