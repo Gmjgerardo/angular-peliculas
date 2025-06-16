@@ -15,6 +15,7 @@ import { MoviesService } from '../movies.service';
 import { GenresService } from '../../genres/genres.service';
 import { PaginationDTO } from '../../shared/models/PaginationDTO';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-movie-filter',
@@ -53,7 +54,9 @@ export class MovieFilterComponent implements OnInit {
     this.readSearchParameterOnURL();
     this.searchMovies(this.form.value as MovieFilter);
 
-    this.form.valueChanges.subscribe(values => {
+    this.form.valueChanges
+    .pipe(debounceTime(300))
+    .subscribe(values => {
       this.pagination.page = 1;
       this.searchMovies(values as MovieFilter);
       this.writeSearchParametersOnURL(values as MovieFilter);
