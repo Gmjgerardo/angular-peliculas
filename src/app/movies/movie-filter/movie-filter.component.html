@@ -28,4 +28,11 @@
   <button mat-flat-button color="warn" type="button" (click)="clearForm()">Limpiar</button>
 
   <app-movie-list [movies]="movies"></app-movie-list>
+  <mat-paginator class="mat-elevation-z8" showFirstLastButtons
+    (page)="paginate($event)"
+    [length]="totalRecords"
+    [pageIndex]="pagination.page - 1"
+    [pageSize]="pagination.rowsPerPage"
+    [pageSizeOptions]="[5, 10, 20, 50, 100]">
+  </mat-paginator>
 </form>

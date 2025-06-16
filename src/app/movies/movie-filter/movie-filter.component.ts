@@ -13,11 +13,14 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { MoviesService } from '../movies.service';
 import { GenresService } from '../../genres/genres.service';
+import { PaginationDTO } from '../../shared/models/PaginationDTO';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-movie-filter',
   standalone: true,
-  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatSelectModule, MatCheckboxModule, MovieListComponent],
+  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule,
+            MatSelectModule, MatCheckboxModule, MovieListComponent, MatPaginatorModule],
   templateUrl: './movie-filter.component.html',
   styleUrl: './movie-filter.component.css',
 })
@@ -38,6 +41,7 @@ export class MovieFilterComponent implements OnInit {
   genres!: GenreDTO[];
   movies!: MovieDTO[];
   totalRecords!: number;
+  pagination: PaginationDTO = { page: 1, rowsPerPage: 5 };
 
   ngOnInit(): void {
     // Obtain initial data for the filter
@@ -50,9 +54,15 @@ export class MovieFilterComponent implements OnInit {
     this.searchMovies(this.form.value as MovieFilter);
 
     this.form.valueChanges.subscribe(values => {
+      this.pagination.page = 1;
       this.searchMovies(values as MovieFilter);
       this.writeSearchParametersOnURL(values as MovieFilter);
     });
+  }
+
+  paginate(pagination: PageEvent): void {
+    this.pagination = { page: pagination.pageIndex + 1, rowsPerPage: pagination.pageSize };
+    this.searchMovies(this.form.value as MovieFilter);
   }
 
   clearForm(): void {
@@ -60,6 +70,9 @@ export class MovieFilterComponent implements OnInit {
   }
 
   searchMovies(movieToSearch: MovieFilter): void {
+    movieToSearch.page = this.pagination.page;
+    movieToSearch.rowsPerPage = this.pagination.rowsPerPage;
+
     this.moviesService.filter(movieToSearch).subscribe({
       next: ({body: movies, headers}) => {
         this.movies = movies ?? [];

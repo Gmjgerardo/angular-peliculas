@@ -3,4 +3,6 @@ export interface MovieFilter {
   genreId: number;
   comingSoon: boolean;
   onCinemas: boolean;
+  page: number;
+  rowsPerPage: number;
 }
