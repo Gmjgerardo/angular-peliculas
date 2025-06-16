@@ -6,11 +6,12 @@ import { MovieDTO } from '../movies';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Coordinate } from '../../shared/components/map/Coordinates';
 import { MapComponent } from "../../shared/components/map/map.component";
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-detail-movie',
   standalone: true,
-  imports: [LoadingComponent, MatChipsModule, MapComponent],
+  imports: [LoadingComponent, MatChipsModule, MapComponent, RouterLink],
   templateUrl: './detail-movie.component.html',
   styleUrl: './detail-movie.component.css'
 })
