@@ -26,7 +26,7 @@
 
   <app-authorized>
     <ng-container Authorized>
-        <span>Hola, Email</span>
+        <span>Hola, {{getJWTField('email')}}</span>
         <a mat-button (click)="logout()">Cerrar Sesión</a>
     </ng-container>
 

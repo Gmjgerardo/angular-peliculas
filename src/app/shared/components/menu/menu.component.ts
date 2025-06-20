@@ -14,7 +14,8 @@ import { AuthorizedComponent } from "../../../security/authorized/authorized.com
   styleUrl: './menu.component.css'
 })
 export class MenuComponent {
-  securityService: SecurityService = inject(SecurityService);
+  private securityService: SecurityService = inject(SecurityService);
 
   logout = () => this.securityService.logout();
+  getJWTField = (field: string) => this.securityService.getJWTField(field);
 }
