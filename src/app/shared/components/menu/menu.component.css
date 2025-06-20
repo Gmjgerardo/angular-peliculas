@@ -8,3 +8,7 @@ mat-toolbar {
 .space {
   flex: 1 1 auto;
 }
+
+app-authorized span {
+  font-size: 18px;
+}
