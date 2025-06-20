@@ -40,6 +40,10 @@ export class SecurityService {
     this.removeToken();
   }
 
+  getToken(): string | null {
+    return localStorage.getItem(this.tokenKey);
+  }
+
   getJWTField(field: string): string {
     const token = localStorage.getItem(this.tokenKey);
 
