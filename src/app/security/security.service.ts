@@ -36,6 +36,10 @@ export class SecurityService {
       .pipe(tap(authenticationResponse => this.writeToken(authenticationResponse)));
   }
 
+  logout(): void {
+    this.removeToken();
+  }
+
   isLogged(): boolean {
     const expiration: Date = new Date(localStorage.getItem(this.expirationKey)!);
 

@@ -13,9 +13,13 @@ import { EditCinemaComponent } from './cinemas/edit-cinema/edit-cinema.component
 import { EditMovieComponent } from './movies/edit-movie/edit-movie.component';
 import { MovieFilterComponent } from './movies/movie-filter/movie-filter.component';
 import { DetailMovieComponent } from './movies/detail-movie/detail-movie.component';
+import { LoginComponent } from './security/login/login.component';
+import { RegisterComponent } from './security/register/register.component';
 
 export const routes: Routes = [
   { path: '', component: LandingPageComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'registrar', component: RegisterComponent },
   { path: 'peliculas/crear', component: CreateMoviesComponent },
   { path: 'peliculas/editar/:id', component: EditMovieComponent },
   { path: 'peliculas/filtrar', component: MovieFilterComponent },
