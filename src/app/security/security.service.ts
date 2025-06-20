@@ -40,6 +40,16 @@ export class SecurityService {
     this.removeToken();
   }
 
+  getJWTField(field: string): string {
+    const token = localStorage.getItem(this.tokenKey);
+
+    const fieldData: string = token
+    ? JSON.parse(atob(token.split('.')[1]))[field]
+    : '';
+
+    return fieldData;
+  }
+
   isLogged(): boolean {
     const expiration: Date = new Date(localStorage.getItem(this.expirationKey)!);
 
