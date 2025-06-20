@@ -21,4 +21,18 @@
   <div>
     <a mat-button routerLink="peliculas/crear">Crear Película</a>
   </div>
+
+  <div class="space"></div>
+
+  <app-authorized>
+    <ng-container Authorized>
+        <span>Hola, Email</span>
+        <a mat-button (click)="logout()">Cerrar Sesión</a>
+    </ng-container>
+
+    <ng-container notAuthorized>
+      <a mat-button routerLink="login">Login</a>
+      <a mat-button routerLink="registrar">Registro</a>
+    </ng-container>
+  </app-authorized>
 </mat-toolbar>
