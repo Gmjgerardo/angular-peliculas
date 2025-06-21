@@ -64,6 +64,20 @@ export class SecurityService {
   };
 
   getRoles(): string[] {
-    return ['admin'];
+    const foundRoles: string[] = [];
+
+    if (this.isLogged()) {
+      const JWTObject = JSON.parse(atob(localStorage.getItem(this.tokenKey)!.split('.')[1]));
+
+      for (const key in JWTObject) {
+        const roleRegex: RegExp = new RegExp(/is(.*)/, "i");
+        const match = key.match(roleRegex);
+
+        if (match && JWTObject[key] === 'true')
+          foundRoles.push(match[1].toLowerCase());
+      }
+    }
+
+    return foundRoles;
   }
 }
