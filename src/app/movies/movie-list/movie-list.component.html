@@ -9,14 +9,18 @@
           <a [routerLink]="['/peliculas/', movie.id]">
             <p class="title">{{ movie.title }}</p>
           </a>
-          <div class="buttons-container">
-            <a mat-flat-button [routerLink]="['/peliculas/editar/', movie.id]">Editar</a>
-            <button mat-flat-button color="warn"
-              [swal]="swalConfigs"
-              (confirm)="delete(movie.id)">
-              Borrar
-            </button>
-          </div>
+          <app-authorized role="admin">
+            <ng-container Authorized>
+              <div class="buttons-container">
+                <a mat-flat-button [routerLink]="['/peliculas/editar/', movie.id]">Editar</a>
+                <button mat-flat-button color="warn"
+                  [swal]="swalConfigs"
+                  (confirm)="delete(movie.id)">
+                  Borrar
+                </button>
+              </div>
+            </ng-container>
+          </app-authorized>
         </div>
       }
     </div>

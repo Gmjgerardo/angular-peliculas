@@ -7,19 +7,18 @@
 
   <div>
     <a mat-button routerLink="peliculas/filtrar">
-      <mat-icon>search</mat-icon>Buscar Películas</a>
+      <mat-icon>search</mat-icon>Buscar Películas
+    </a>
   </div>
   <div>
-    <a mat-button routerLink="generos">Géneros</a>
-  </div>
-  <div>
-    <a mat-button routerLink="actores">Actores</a>
-  </div>
-  <div>
-    <a mat-button routerLink="cines">Cines</a>
-  </div>
-  <div>
-    <a mat-button routerLink="peliculas/crear">Crear Película</a>
+    <app-authorized role="admin">
+      <ng-container Authorized>
+        <a mat-button routerLink="generos">Géneros</a>
+        <a mat-button routerLink="actores">Actores</a>
+        <a mat-button routerLink="cines">Cines</a>
+        <a mat-button routerLink="peliculas/crear">Crear Película</a>
+      </ng-container>
+    </app-authorized>
   </div>
 
   <div class="space"></div>
