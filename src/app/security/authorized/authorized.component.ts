@@ -9,7 +9,7 @@ import { SecurityService } from '../security.service';
   styleUrl: './authorized.component.css'
 })
 export class AuthorizedComponent {
-  securityService: SecurityService = inject(SecurityService);
+  private securityService: SecurityService = inject(SecurityService);
 
   @Input() role: string | null = null;
 
