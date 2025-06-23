@@ -5,8 +5,9 @@
       @for (genre of movie.genres; track $index) {
         <mat-chip [routerLink]="['/peliculas/filtrar']" [queryParams]="{genero: genre.id}">{{genre.name}}</mat-chip>
       }
-    </mat-chip-listbox> | {{ movie.releaseDate.toLocaleDateString() }} | Promedio: 0.0 | Tu voto: 0.0
-
+    </mat-chip-listbox> | {{ movie.releaseDate.toLocaleDateString() }}
+      | Promedio: {{ movie.averageRating.toFixed(1) }}
+      | Tu voto: <app-rating [maximumRating]=5 [selectedRating]="movie.userRate" (voted)="rate($event)" />
     <div class="container">
       <span>
         <img [src]="movie.image" alt="{{ movie.title }} poster" width="225" height="315">
