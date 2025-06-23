@@ -40,3 +40,7 @@ section.actors-section .container .dots {
   display: inline-block;
   width: 45px;
 }
+
+app-rating {
+  vertical-align: middle;
+}
