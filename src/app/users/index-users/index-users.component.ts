@@ -6,6 +6,7 @@ import { MatTableModule } from '@angular/material/table';
 import { PaginationDTO } from '../../shared/models/PaginationDTO';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-index-users',
@@ -31,5 +32,24 @@ export class IndexUsersComponent implements OnInit {
       },
       error: (err) => console.error('An error occurred when trying get user.', err),
     });
+  }
+
+  becomeAdmin(user: UserDTO): void {
+    this.usersService.addAdminClaimToUser(user).subscribe({
+      next: () => Swal.fire('Exitoso', `El usuario ${user.email} ha sido asignado como administrador correctamente.` , 'success'),
+      error: (err) => this.manageErrors(err),
+    });
+  };
+
+  revokeAdmin(user: UserDTO): void {
+    this.usersService.removeAdminClaimToUser(user).subscribe({
+      next: () => Swal.fire('Exitoso', `El usuario ${user.email} ha sido eliminado como administrador correctamente.` , 'success'),
+      error: (err) => this.manageErrors(err),
+    });
+  };
+
+  private manageErrors(err: any): void {
+    Swal.fire('Error', `Ocurrio un error, intentalo nuevamente.` , 'error')
+    console.error('An error has occurred when modifying Admin Claim to user', err);
   }
 }

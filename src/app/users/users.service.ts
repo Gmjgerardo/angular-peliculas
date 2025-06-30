@@ -21,4 +21,12 @@ export class UsersService {
       observe: 'response',
     });
   }
+
+  addAdminClaimToUser(user: UserDTO): Observable<Object> {
+    return this.http.post(`${this.baseURL}/becomeAdmin`, user);
+  }
+
+  removeAdminClaimToUser(user: UserDTO): Observable<Object> {
+    return this.http.post(`${this.baseURL}/revokeAdmin`, user);
+  }
 }

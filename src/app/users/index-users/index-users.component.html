@@ -8,8 +8,8 @@
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef>Acciones</th>
         <td class="buttons-container" mat-cell *matCellDef="let user">
-          <button mat-flat-button>Hacer Admin</button>
-          <button mat-flat-button>Remover Admin</button>
+          <button mat-flat-button (click)="becomeAdmin(user)">Hacer Admin</button>
+          <button mat-flat-button (click)="revokeAdmin(user)">Remover Admin</button>
         </td>
       </ng-container>
 
